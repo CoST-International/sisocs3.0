@@ -1,0 +1,103 @@
+@import '~@angular/material/theming';
+
+@include mat-core();
+
+$mat-primary-scheme: (
+  100: #f1f1f0,
+  500: #313d4f,
+  700: #1b222c,
+  contrast: (
+    100: rgba(0, 0, 0, 0.87),
+    500: #ffffff,
+    700: #ffffff,
+  ),
+);
+$mat-accent-scheme: (
+  100: #e85d04,
+  500: #d00000,
+  700: #6a040f,
+  contrast: (
+    100: rgba(0, 0, 0, 0.87),
+    500: rgba(0, 0, 0, 0.87),
+    700: #ffffff,
+  ),
+);
+$mat-primary-palette: mat-palette($mat-primary-scheme);
+$mat-accent-palette: mat-palette($mat-accent-scheme);
+
+$app-light-theme: mat-light-theme($mat-primary-palette, $mat-accent-palette);
+
+@include angular-material-theme($app-light-theme);
+
+// following section is for dark mode.
+// use appropriate class name for darkMode
+$app-dark-theme: mat-dark-theme($mat-primary-palette, $mat-accent-palette);
+.darkMode {
+  @include angular-material-theme($app-dark-theme);
+}
+
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+// Modify the ring on all inputs colour to white from default blue
+[type='button']:focus, [type='text']:focus, [type='email']:focus, [type='url']:focus, [type='password']:focus, [type='number']:focus, [type='date']:focus, [type='datetime-local']:focus, [type='month']:focus, [type='search']:focus, [type='tel']:focus, [type='time']:focus, [type='week']:focus, [multiple]:focus, textarea:focus, select:focus {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  --tw-ring-inset: var(--tw-empty,/*!*/ /*!*/);
+  --tw-ring-offset-width: 0px;
+  --tw-ring-offset-color: #fff;
+  --tw-ring-color: #ffffff;
+  --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+  --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(1px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+  box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
+  border-color: #ffffff;
+}
+
+input.ng-invalid.ng-touched, textarea.ng-invalid.ng-touched, select.ng-invalid.ng-touched {
+  border: 1px solid red !important;
+}
+
+input.ng-valid.ng-touched, textarea.ng-valid.ng-touched, select.ng-valid.ng-touched {
+  border: 1px solid green !important;
+}
+
+.mat-snack-bar-container {
+  color: rgba(19, 19, 19, 0.7);
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.dialog-btn {
+  background-color: #00BCD4 !important;
+}
+
+.loader-primary {
+  color: #00BCD4;
+}
+
+.fade-in{-webkit-animation:fade-in .8s cubic-bezier(.86,0.000,.07,1.000) both;animation:fade-in .8s cubic-bezier(.86,0.000,.07,1.000) both}
+
+@-webkit-keyframes fade-in{0%{opacity:0}100%{opacity:1}}@keyframes fade-in{0%{opacity:0}100%{opacity:1}}
+
+.slide-in-blurred-top{-webkit-animation:slide-in-blurred-top .5s cubic-bezier(.23,1.000,.32,1.000) both;animation:slide-in-blurred-top .5s cubic-bezier(.23,1.000,.32,1.000) both}
+
+@-webkit-keyframes slide-in-blurred-top{0%{-webkit-transform:translateY(-1000px) scaleY(2.5) scaleX(.2);transform:translateY(-1000px) scaleY(2.5) scaleX(.2);-webkit-transform-origin:50% 0;transform-origin:50% 0;-webkit-filter:blur(40px);filter:blur(40px);opacity:0}100%{-webkit-transform:translateY(0) scaleY(1) scaleX(1);transform:translateY(0) scaleY(1) scaleX(1);-webkit-transform-origin:50% 50%;transform-origin:50% 50%;-webkit-filter:blur(0);filter:blur(0);opacity:1}}@keyframes slide-in-blurred-top{0%{-webkit-transform:translateY(-1000px) scaleY(2.5) scaleX(.2);transform:translateY(-1000px) scaleY(2.5) scaleX(.2);-webkit-transform-origin:50% 0;transform-origin:50% 0;-webkit-filter:blur(40px);filter:blur(40px);opacity:0}100%{-webkit-transform:translateY(0) scaleY(1) scaleX(1);transform:translateY(0) scaleY(1) scaleX(1);-webkit-transform-origin:50% 50%;transform-origin:50% 50%;-webkit-filter:blur(0);filter:blur(0);opacity:1}}
+
+
+// Validate number inputs
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}

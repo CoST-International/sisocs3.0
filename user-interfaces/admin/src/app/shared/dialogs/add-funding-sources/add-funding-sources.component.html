@@ -1,0 +1,77 @@
+<div>
+  <div class="py-2 text-lg">
+    Add Funding Source
+  </div>
+  <div>
+    <form [formGroup]="fundingSourceForm">
+      <div class="mt-5 grid grid-cols-1">
+        <label class="flex items-center justify-between text-xs text-gray-500 capitalize md:text-sm text-light">
+          <span>
+            <span>Funding Source: </span>
+            <svg *ngIf="fundingSource?.valid" [ngClass]="{ 'text-green-500': fundingSource?.valid && (fundingSource?.touched || fundingSource?.dirty) }" class="inline-block w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+            <svg *ngIf="fundingSource?.invalid" [ngClass]="{ 'text-red-500': fundingSource?.invalid && (fundingSource?.touched || fundingSource?.dirty) }" class="inline-block w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"></path></svg>
+          </span>
+        </label>
+        <input
+          formControlName="funding_source_id"
+          [matAutocomplete]="auto"
+          [ngClass]="{ 'border-2 border-red-400 focus:ring-2 focus:ring-red-600': (fundingSource?.invalid && (fundingSource?.touched || fundingSource?.dirty)), 'border-2 border-green-400 focus:ring-2 focus:ring-green-600': fundingSource?.valid && (fundingSource?.touched || fundingSource?.dirty) }"
+          class="px-2 py-1 mt-1 border-2 border-gray-400 rounded focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-transparent"
+          type="search"
+          placeholder="Choose Funding Source" />
+        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayStateFundingSources" required>
+          <mat-option *ngFor="let source of filteredFundingSources | async" [value]="source">
+            <span class="text-sm font-bold text-gray-700">
+              <span>{{source?.name | titlecase}}</span>
+            </span>
+          </mat-option>
+        </mat-autocomplete>
+      </div>
+      <div class="relative mt-5 grid grid-cols-1">
+        <label class="flex items-center justify-between text-xs text-gray-500 capitalize md:text-sm text-light">
+          <span>
+            <span>Currency: </span>
+            <svg *ngIf="currency?.valid" [ngClass]="{ 'text-green-500': currency?.valid && (currency?.touched || currency?.dirty) }" class="inline-block w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+            <svg *ngIf="currency?.invalid" [ngClass]="{ 'text-red-500': currency?.invalid && (currency?.touched || currency?.dirty) }" class="inline-block w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"></path></svg>
+          </span>
+        </label>
+        <input
+          formControlName="currency_id"
+          [matAutocomplete]="autoCurrency"
+          [ngClass]="{ 'border-2 border-red-400 focus:ring-2 focus:ring-red-600': (currency?.invalid && (currency?.touched || currency?.dirty)), 'border-2 border-green-400 focus:ring-2 focus:ring-green-600': currency?.valid && (currency?.touched || currency?.dirty) }"
+          class="px-2 py-1 mt-1 border-2 border-gray-400 rounded focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-transparent"
+          type="search"
+          placeholder="Choose Currency" />
+        <mat-autocomplete #autoCurrency="matAutocomplete" [displayWith]="displayStateCurrencies" required>
+          <mat-option *ngFor="let currency of filteredCurrencies | async" [value]="currency">
+            <span class="text-sm font-bold text-gray-700">
+              <span>{{ currency?.code }}</span>
+            </span>
+          </mat-option>
+        </mat-autocomplete>
+    </div>
+      <div class="mt-5 grid grid-cols-1">
+        <label class="flex items-center justify-between text-xs text-gray-500 capitalize md:text-sm text-light">
+          <span>
+            <span>Amount: </span>
+            <svg *ngIf="amount?.valid" [ngClass]="{ 'text-green-500': amount?.valid && (amount?.touched || amount?.dirty) }" class="inline-block w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+            <svg *ngIf="amount?.invalid" [ngClass]="{ 'text-red-500': amount?.invalid && (amount?.touched || amount?.dirty) }" class="inline-block w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"></path></svg>
+          </span>
+        </label>
+        <input
+          formControlName="amount"
+          [ngClass]="{ 'border-2 border-red-400 focus:ring-2 focus:ring-red-600': (amount?.invalid && (amount?.touched || amount?.dirty)), 'border-2 border-green-400 focus:ring-2 focus:ring-green-600': amount?.valid && (amount?.touched || amount?.dirty) }"
+          class="px-2 py-1 mt-1 border-2 border-gray-400 rounded focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-transparent"
+          type="text"
+          placeholder="" />
+      </div>
+      <div class="flex justify-end my-4">
+        <div class="space-x-4">
+         <button type="button" (click)="closeDialog()" mat-stroked-button class="text-gray-800 border border-gray-100">Cancel</button>
+         <button type="button" color="primary" [disabled]="fundingSourceForm.invalid" (click)="saveFundingSource(fundingSourceForm)" mat-flat-button  class="text-white bg-blue-400">Save</button>
+        </div>
+       </div>
+    </form>
+
+  </div>
+</div>

@@ -1,0 +1,851 @@
+<div fxLayout="column">
+  <app-mainnav></app-mainnav>
+
+  <div>
+    <!-- component -->
+    <div class="flex items-center">
+      <div class="max-w-7xl w-full mx-auto py-6 sm:px-6" fxLayout="column" fxLayoutGap="30px">
+        <div>
+          <!-- component -->
+
+          <app-loader *ngIf="isLoadingProjects"></app-loader>
+          <div class="bg-white" *ngIf="!isLoadingProjects">
+            <div class="px-6 mt-4 overflow-x-hidden lg:px-10">
+              <div class="flex flex-col md:flex-row md:justify-between">
+                <div class="flex items-center">
+                  <span>
+                    <svg class="w-4 h-4 mr-2 text-gray-600 fill-current" viewBox="0 0 16 16" version="1.1" width="16"
+                      height="16" aria-hidden="true">
+                      <path fill-rule="evenodd"
+                        d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 110-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9zm10.5-1V9h-8c-.356 0-.694.074-1 .208V2.5a1 1 0 011-1h8zM5 12.25v3.25a.25.25 0 00.4.2l1.45-1.087a.25.25 0 01.3 0L8.6 15.7a.25.25 0 00.4-.2v-3.25a.25.25 0 00-.25-.25h-3.5a.25.25 0 00-.25.25z">
+                      </path>
+                    </svg>
+                  </span>
+                  <span class="text-lg font-bold justify-between">
+                    {{project.title}}
+                  </span>
+                </div>
+                <div class="mt-4 mb-2 md:hidden">
+                  <span class="text-sm">
+                    A utility-first CSS framework for rapid UI development.
+                  </span>
+                  <div class="my-2">
+                    <a class="flex items-center mb-1 text-sm font-semibold text-blue-600 hover:underline" href="#">
+                      <svg class="w-4 h-4 mr-2 text-gray-700" fill="none" stroke-linecap="round" stroke-linejoin="round"
+                        stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                        <path
+                          d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1">
+                        </path>
+                      </svg>
+                      tailwindcss.com/</a>
+                    <a href="" class="flex items-center mb-1 text-sm font-medium text-gray-700 hover:underline">
+                      <svg height="16" class="w-4 h-4 mr-2 text-gray-700 fill-current" mr="2" viewBox="0 0 16 16"
+                        version="1.1" width="16" aria-hidden="true">
+                        <path fill-rule="evenodd"
+                          d="M8.75.75a.75.75 0 00-1.5 0V2h-.984c-.305 0-.604.08-.869.23l-1.288.737A.25.25 0 013.984 3H1.75a.75.75 0 000 1.5h.428L.066 9.192a.75.75 0 00.154.838l.53-.53-.53.53v.001l.002.002.002.002.006.006.016.015.045.04a3.514 3.514 0 00.686.45A4.492 4.492 0 003 11c.88 0 1.556-.22 2.023-.454a3.515 3.515 0 00.686-.45l.045-.04.016-.015.006-.006.002-.002.001-.002L5.25 9.5l.53.53a.75.75 0 00.154-.838L3.822 4.5h.162c.305 0 .604-.08.869-.23l1.289-.737a.25.25 0 01.124-.033h.984V13h-2.5a.75.75 0 000 1.5h6.5a.75.75 0 000-1.5h-2.5V3.5h.984a.25.25 0 01.124.033l1.29.736c.264.152.563.231.868.231h.162l-2.112 4.692a.75.75 0 00.154.838l.53-.53-.53.53v.001l.002.002.002.002.006.006.016.015.045.04a3.517 3.517 0 00.686.45A4.492 4.492 0 0013 11c.88 0 1.556-.22 2.023-.454a3.512 3.512 0 00.686-.45l.045-.04.01-.01.006-.005.006-.006.002-.002.001-.002-.529-.531.53.53a.75.75 0 00.154-.838L13.823 4.5h.427a.75.75 0 000-1.5h-2.234a.25.25 0 01-.124-.033l-1.29-.736A1.75 1.75 0 009.735 2H8.75V.75zM1.695 9.227c.285.135.718.273 1.305.273s1.02-.138 1.305-.273L3 6.327l-1.305 2.9zm10 0c.285.135.718.273 1.305.273s1.02-.138 1.305-.273L13 6.327l-1.305 2.9z">
+                        </path>
+                      </svg>
+                      MIT License
+                    </a>
+                    <div class="flex">
+                      <a href=""
+                        class="flex items-center mb-1 text-sm font-medium text-gray-700 hover:underline hover:text-blue-500">
+                        <svg class="w-4 h-4 mr-2 fill-current" stroke-linecap="round" stroke-linejoin="round"
+                          stroke-width="2" viewBox="0 0 24 24">
+                          <path
+                            d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z">
+                          </path>
+                        </svg>
+                        24.1k stars
+                      </a>
+                      <a href=""
+                        class="flex items-center mb-1 ml-2 text-sm font-medium text-gray-700 hover:underline hover:text-blue-500">
+                        <svg class="w-4 h-4 mr-1 fill-current" viewBox="0 0 16 16" version="1.1" width="16" height="16"
+                          aria-hidden="true">
+                          <path fill-rule="evenodd"
+                            d="M5 3.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm0 2.122a2.25 2.25 0 10-1.5 0v.878A2.25 2.25 0 005.75 8.5h1.5v2.128a2.251 2.251 0 101.5 0V8.5h1.5a2.25 2.25 0 002.25-2.25v-.878a2.25 2.25 0 10-1.5 0v.878a.75.75 0 01-.75.75h-4.5A.75.75 0 015 6.25v-.878zm3.75 7.378a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm3-8.75a.75.75 0 100-1.5.75.75 0 000 1.5z">
+                          </path>
+                        </svg>
+                        1.1k forks
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                <div class="hidden md:block md:flex md:justify-between">
+                  <div class="flex text-center border rounded-lg md:border-none">
+                    <div
+                      class="flex items-center px-2 py-1 bg-gray-200 border-gray-400 cursor-pointer md:rounded-l-lg md:border-t md:border-l md:border-b hover:bg-gray-300">
+                      <span class="self-center text-sm font-medium">Descargar
+                      </span>
+                    </div>
+                    <div
+                      class="px-2 py-1 text-sm font-semibold border border-t border-gray-400 rounded-r-lg cursor-pointer hover:text-blue-600">
+                      {{project.updated | date: 'M/d/yy'}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="flex items-center justify-between px-10 mt-6 -mx-10 border-b select-none md:mt-4">
+                <div class="flex">
+                  <div (click)="currentPhase('identification')"
+                    class="flex items-center px-4 pb-2 text-sm border-b-2 border-transparent cursor-pointer hover:border-gray-300">
+                    <svg class="hidden w-5 h-5 mr-1 text-gray-700 md:block" fill="none" stroke-linecap="round"
+                      stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                      <path d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    Identificación
+                  </div>
+                  <div (click)="currentPhase('preparation')"
+                    class="flex items-center px-4 pb-2 text-sm border-b-2 border-transparent cursor-pointer hover:border-gray-300">
+                    <svg class="hidden w-5 h-5 mr-1 text-gray-600 fill-current md:block" viewBox="0 0 16 16"
+                      version="1.1" width="16" height="16" aria-hidden="true">
+                      <path fill-rule="evenodd"
+                        d="M5 3.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm0 2.122a2.25 2.25 0 10-1.5 0v.878A2.25 2.25 0 005.75 8.5h1.5v2.128a2.251 2.251 0 101.5 0V8.5h1.5a2.25 2.25 0 002.25-2.25v-.878a2.25 2.25 0 10-1.5 0v.878a.75.75 0 01-.75.75h-4.5A.75.75 0 015 6.25v-.878zm3.75 7.378a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm3-8.75a.75.75 0 100-1.5.75.75 0 000 1.5z">
+                      </path>
+                    </svg>
+                    Preparación
+                  </div>
+
+                  <div (click)="currentPhase('tendering')"
+                    class="flex items-center px-4 pb-2 text-sm border-b-2 border-transparent cursor-pointer hover:border-gray-300">
+                    <svg class="hidden w-5 h-5 mr-1 text-gray-700 md:block" fill="none" stroke-linecap="round"
+                      stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                      <path d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    Adquisición
+                  </div>
+                </div>
+                <div class="flex items-start pb-2 cursor-pointer md:hidden">
+                  <svg class="w-5 h-5 text-gray-700 fill-current" fill="currentColor" viewBox="0 0 20 20">
+                    <path
+                      d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z">
+                    </path>
+                  </svg>
+                </div>
+              </div>
+              <div class="container pb-10 mx-auto mt-8">
+                <div class="md:flex">
+                  <!-- Identification -->
+                  <div *ngIf="phase == 'identification'" class="w-full mr-4 md:w-3/4">
+                    <div class="my-4">
+                      <div class="flex justify-between px-4 py-3 bg-gray-100 border border-gray-200 rounded-t-lg">
+                        <div class="flex items-center">
+                          <img class="w-6 h-6 mr-2 rounded-md"
+                            src="https://avatars3.githubusercontent.com/in/2141?s=60&v=4" alt="" />
+                          <p class="text-sm font-semibold">
+                            Identification Phase
+                          </p>
+                        </div>
+                      </div>
+                      <div class="hidden text-center border-b border-l border-r rounded-b-lg md:block">
+                        <div class="flex px-4 py-2 text-sm hover:bg-gray-200">
+                          <div class="flex w-1/4">
+                            <p class="ml-2 font-medium cursor-pointer hover:underline hover:text-gray-500">
+                              Projecto ID
+                            </p>
+                          </div>
+                          <p class="w-1/2 text-left cursor-pointer hover:underline hover:text-blue-500">
+                            {{id}}
+                          </p>
+                        </div>
+
+                        <div class="flex px-4 py-2 text-sm hover:bg-gray-200">
+                          <div class="flex w-1/4">
+                            <p class="ml-2 font-medium cursor-pointer hover:underline hover:text-blue-500">
+                              Propietario del proyecto
+                            </p>
+                          </div>
+                          <p class="w-1/2 text-left cursor-pointer hover:underline hover:text-blue-500">
+                            {{project.publicAuthority.name}}
+                          </p>
+                        </div>
+
+
+
+                      </div>
+                      <div class="py-2 text-center border-b border-l border-r rounded-b-lg md:hidden">
+                        <p class="text-blue-600 cursor-pointer hover:underline">
+                          View code
+                        </p>
+                      </div>
+                    </div>
+                    <div class="py-6 border-b md:border md:rounded-lg md:px-8">
+                      <div class="mb-6">
+                        <div
+                          class="flex items-center pb-2 -mx-4 text-lg font-bold leading-normal text-transparent hover:text-gray-700">
+                          <svg class="w-4 h-4 mr-1 cursor-pointer" fill="none" stroke-linecap="round"
+                            stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                            <path
+                              d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1">
+                            </path>
+                          </svg>
+                          <p class="text-black">Descripción del Proyecto</p>
+                        </div>
+                        <hr />
+                        <div class="my-4">
+                          {{project.description}}
+                        </div>
+                      </div>
+
+
+                    </div>
+                  </div>
+
+                  <!-- Preparation -->
+                  <div *ngIf="phase == 'preparation'" class="w-full mr-4 md:w-3/4">
+                    <div class="my-4">
+                      <div class="flex justify-between px-4 py-3 bg-gray-100 border border-gray-200 rounded-t-lg">
+                        <div class="flex items-center">
+                          <img class="w-6 h-6 mr-2 rounded-md"
+                            src="https://avatars3.githubusercontent.com/in/2141?s=60&v=4" alt="" />
+                          <p class="text-sm font-semibold">Fase de preparación/p>
+                        </div>
+                      </div>
+
+                      <div class="hidden text-center border-b border-l border-r rounded-b-lg md:block">
+                        <div class="flex px-4 py-2 text-sm hover:bg-gray-200">
+                          <div class="flex w-1/4">
+                            <p class="ml-2 font-medium cursor-pointer hover:underline hover:text-gray-500">
+                              Presupuesto
+                            </p>
+                          </div>
+                          <p class="w-1/2 text-left cursor-pointer hover:underline hover:text-blue-500">
+                            HNL{{project.budget.amount.amount }}
+                          </p>
+                        </div>
+
+                        <div class="flex px-4 py-2 text-sm hover:bg-gray-200">
+                          <div class="flex w-1/4">
+                            <p class="ml-2 font-medium cursor-pointer hover:underline hover:text-blue-500">
+                              Fecha de aprobación
+                            </p>
+                          </div>
+                          <p class="w-1/2 text-left cursor-pointer hover:underline hover:text-blue-500">
+                            {{project.budget.approvalDate}}
+                          </p>
+                        </div>
+                      </div>
+                      <div class="py-2 text-center border-b border-l border-r rounded-b-lg md:hidden">
+                        <p class="text-blue-600 cursor-pointer hover:underline">
+                          View code
+                        </p>
+                      </div>
+                    </div>
+                    <div class="py-6 border-b md:border md:rounded-lg md:px-8">
+
+
+
+
+                    </div>
+                  </div>
+
+
+
+                  <!-- Tendering -->
+                  <div *ngIf="phase == 'tendering'" class="w-full mr-4 md:w-3/4">
+                    <div class="my-4">
+                      <div class="flex justify-between px-4 py-3 bg-gray-100 border border-gray-200 rounded-t-lg">
+                        <div class="flex items-center">
+                          <img class="w-6 h-6 mr-2 rounded-md"
+                            src="https://avatars3.githubusercontent.com/in/2141?s=60&v=4" alt="" />
+                          <p class="text-sm font-semibold">Gestión de licitaciones</p>
+                        </div>
+                      </div>
+
+                      <div *ngFor="let c of project.contractingProcesses">
+                        <div class="hidden text-center border-b border-l border-r rounded-b-lg md:block">
+                          <div class="flex px-4 py-2 text-sm hover:bg-gray-200">
+                            <div class="flex w-1/4">
+                              <p class="ml-2 font-medium cursor-pointer hover:underline hover:text-gray-500">
+                                ID del contrato
+
+                              </p>
+                            </div>
+                            <p class="w-1/2 text-left cursor-pointer hover:underline hover:text-blue-500">
+                              {{c.summary.ocid}}
+                            </p>
+                          </div>
+
+                          <div class="flex px-4 py-2 text-sm hover:bg-gray-200">
+                            <div class="flex w-1/4">
+                              <p class="ml-2 font-medium cursor-pointer hover:underline hover:text-gray-500">
+                                Título del contrato
+                              </p>
+                            </div>
+                            <p class="w-1/2 text-left cursor-pointer hover:underline hover:text-blue-500">
+                              {{c.summary.title}}
+                            </p>
+                          </div>
+
+                          <div class="flex px-4 py-2 text-sm hover:bg-gray-200">
+                            <div class="flex w-1/4">
+                              <p class="ml-2 font-medium cursor-pointer hover:underline hover:text-blue-500">
+                                Número de oferentes
+                              </p>
+                            </div>
+                            <p class="w-1/2 text-left cursor-pointer hover:underline hover:text-blue-500">
+                              {{c.summary.tender.numberOfTenderers}}
+                            </p>
+                          </div>
+
+                          <div class="flex px-4 py-2 text-sm hover:bg-gray-200">
+                            <div class="flex w-1/4">
+                              <p class="ml-2 font-medium cursor-pointer hover:underline hover:text-blue-500">
+                                Costo estimado
+                              </p>
+                            </div>
+                            <p class="w-1/2 text-left cursor-pointer hover:underline hover:text-blue-500">
+                             HNL  {{c.summary.tender.costEstimate.amount}}
+                            </p>
+                          </div>
+
+
+                        </div>
+
+
+                        <div class="py-6 border-b mt-2 md:border md:rounded-lg md:px-8">
+                          <div class="mb-6">
+                            <div
+                              class="flex items-center pb-2 -mx-4 text-lg font-bold leading-normal text-transparent hover:text-gray-700">
+                              <svg class="w-4 h-4 mr-1 cursor-pointer" fill="none" stroke-linecap="round"
+                                stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                                <path
+                                  d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1">
+                                </path>
+                              </svg>
+                              <p class="text-black">Alcance del trabajo</p>
+                            </div>
+                            <hr />
+                            <div class="my-4">
+                              {{c.summary.description}}
+                            </div>
+                          </div>
+                          <div class="mb-6">
+                            <div
+                              class="flex items-center pb-2 -mx-4 text-lg font-bold leading-normal text-transparent hover:text-gray-700">
+                              <svg class="w-4 h-4 mr-1 cursor-pointer" fill="none" stroke-linecap="round"
+                                stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                                <path
+                                  d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1">
+                                </path>
+                              </svg>
+                              <p class="text-black">Oferentes
+
+                              </p>
+                            </div>
+                            <hr />
+                            <div class="my-4">
+                              <ul class="list-reset flex flex-col">
+                                <li *ngFor="let t of c.summary.tender.tenderers" class="rounded-t relative -mb-px block border p-4 border-grey">
+                                  {{t.name}}
+                                </li>
+
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+
+                    </div>
+
+                  </div>
+
+                  <!-- implemtation -->
+                  <div *ngIf="phase == 'implementation'" class="w-full mr-4 md:w-3/4">
+                    <div class="my-4">
+                      <div class="flex justify-between px-4 py-3 bg-gray-100 border border-gray-200 rounded-t-lg">
+                        <div class="flex items-center">
+                          <img class="w-6 h-6 mr-2 rounded-md"
+                            src="https://avatars3.githubusercontent.com/in/2141?s=60&v=4" alt="" />
+                          <p class="text-sm font-semibold">
+                            Implementation Phase
+                          </p>
+                        </div>
+                      </div>
+                      <div class="hidden text-center border-b border-l border-r rounded-b-lg md:block">
+                        <div class="flex px-4 py-2 text-sm hover:bg-gray-200">
+                          <div class="flex w-1/4">
+                            <p class="ml-2 font-medium cursor-pointer hover:underline hover:text-gray-500">
+                              Variation to contract price
+                            </p>
+                          </div>
+                          <p class="w-1/2 text-left cursor-pointer hover:underline hover:text-blue-500">
+                            xxxxxx
+                          </p>
+                        </div>
+
+                        <div class="flex px-4 py-2 text-sm hover:bg-gray-200">
+                          <div class="flex w-1/4">
+                            <p class="ml-2 font-medium cursor-pointer hover:underline hover:text-blue-500">
+                              Escalation of contract price
+                            </p>
+                          </div>
+                          <p class="w-1/2 text-left cursor-pointer hover:underline hover:text-blue-500">
+                            xxxx
+                          </p>
+                        </div>
+
+                        <div class="flex px-4 py-2 text-sm hover:bg-gray-200">
+                          <div class="flex w-1/4">
+                            <p class="ml-2 font-medium cursor-pointer hover:underline hover:text-blue-500">
+                              Variation to contract duration
+                            </p>
+                          </div>
+                          <p class="w-1/2 text-left cursor-pointer hover:underline hover:text-blue-500">
+                            xxxxx
+                          </p>
+                        </div>
+                      </div>
+                      <div class="py-2 text-center border-b border-l border-r rounded-b-lg md:hidden">
+                        <p class="text-blue-600 cursor-pointer hover:underline">
+                          View code
+                        </p>
+                      </div>
+                    </div>
+                    <div class="py-6 border-b md:border md:rounded-lg md:px-8">
+                      <div class="mb-6">
+                        <div
+                          class="flex items-center pb-2 -mx-4 text-lg font-bold leading-normal text-transparent hover:text-gray-700">
+                          <svg class="w-4 h-4 mr-1 cursor-pointer" fill="none" stroke-linecap="round"
+                            stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                            <path
+                              d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1">
+                            </path>
+                          </svg>
+                          <p class="text-black">Variation to contract scope</p>
+                        </div>
+                        <hr />
+                        <div class="my-4">
+                          Lorem ipsum dolor sit amet, consectetur adipiscing
+                          elit. Nam dapibus semper ligula volutpat molestie.
+                          Vivamus dictum vestibulum eros, a blandit tortor
+                          feugiat ornare. Fusce interdum sem leo, sed lobortis
+                          odio maximus a. Mauris eros dui, hendrerit a facilisis
+                          non, consequat sit amet erat. Etiam sed eleifend diam.
+                          Nullam accumsan tellus sed metus blandit, eget dictum
+                          justo viverra. Phasellus facilisis convallis velit.
+                          Sed sem metus, volutpat eu quam vehicula, consequat
+                          auctor leo. Curabitur posuere arcu in porta sodales.
+                          Integer ac dignissim lectus. Orci varius natoque
+                          penatibus et magnis dis parturient montes, nascetur
+                          ridiculus mus.
+                        </div>
+                      </div>
+                      <div class="mb-6">
+                        <div
+                          class="flex items-center pb-2 -mx-4 text-lg font-bold leading-normal text-transparent hover:text-gray-700">
+                          <svg class="w-4 h-4 mr-1 cursor-pointer" fill="none" stroke-linecap="round"
+                            stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                            <path
+                              d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1">
+                            </path>
+                          </svg>
+                          <p class="text-black">Reasons for price changes</p>
+                        </div>
+                        <hr />
+                        <div class="my-4">
+                          Lorem ipsum dolor sit amet, consectetur adipiscing
+                          elit. Nam dapibus semper ligula volutpat molestie.
+                          Vivamus dictum vestibulum eros, a blandit tortor
+                          feugiat ornare. Fusce interdum sem leo, sed lobortis
+                          odio maximus a. Mauris eros dui, hendrerit a facilisis
+                          non, consequat sit amet erat. Etiam sed eleifend diam.
+                          Nullam accumsan tellus sed metus blandit, eget dictum
+                          justo viverra. Phasellus facilisis convallis velit.
+                          Sed sem metus, volutpat eu quam vehicula, consequat
+                          auctor leo. Curabitur posuere arcu in porta sodales.
+                          Integer ac dignissim lectus. Orci varius natoque
+                          penatibus et magnis dis parturient montes, nascetur
+                          ridiculus mus.
+                        </div>
+                      </div>
+
+                      <div class="mb-6">
+                        <div
+                          class="flex items-center pb-2 -mx-4 text-lg font-bold leading-normal text-transparent hover:text-gray-700">
+                          <svg class="w-4 h-4 mr-1 cursor-pointer" fill="none" stroke-linecap="round"
+                            stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                            <path
+                              d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1">
+                            </path>
+                          </svg>
+                          <p class="text-black">
+                            Reasons for scope and duration changes
+                          </p>
+                        </div>
+                        <hr />
+                        <div class="my-4">
+                          Lorem ipsum dolor sit amet, consectetur adipiscing
+                          elit. Nam dapibus semper ligula volutpat molestie.
+                          Vivamus dictum vestibulum eros, a blandit tortor
+                          feugiat ornare. Fusce interdum sem leo, sed lobortis
+                          odio maximus a. Mauris eros dui, hendrerit a facilisis
+                          non, consequat sit amet erat. Etiam sed eleifend diam.
+                          Nullam accumsan tellus sed metus blandit, eget dictum
+                          justo viverra. Phasellus facilisis convallis velit.
+                          Sed sem metus, volutpat eu quam vehicula, consequat
+                          auctor leo. Curabitur posuere arcu in porta sodales.
+                          Integer ac dignissim lectus. Orci varius natoque
+                          penatibus et magnis dis parturient montes, nascetur
+                          ridiculus mus.
+                        </div>
+                      </div>
+
+
+
+
+
+
+                      <div class="mb-6">
+                        <div
+                          class="flex items-center pb-2 -mx-4 text-lg font-bold leading-normal text-transparent hover:text-gray-700">
+                          <svg class="w-4 h-4 mr-1 cursor-pointer" fill="none" stroke-linecap="round"
+                            stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                            <path
+                              d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1">
+                            </path>
+                          </svg>
+                          <p class="text-black">Documents</p>
+                        </div>
+
+                        <hr />
+                        <div class="my-4" fxLayout="column">
+                          <div class="flex">
+                            <svg class="w-6 h-6 text-gray-600 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none"
+                              viewBox="0 0 24 24" stroke="currentColor">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                            </svg>
+                            <p class="ml-2 cursor-pointer hover:underline hover:text-blue-500">
+                              List of variations, changes, amendments
+                            </p>
+                          </div>
+
+                          <div class="flex">
+                            <svg class="w-6 h-6 text-gray-600 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none"
+                              viewBox="0 0 24 24" stroke="currentColor">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                            </svg>
+                            <p class="ml-2 cursor-pointer hover:underline hover:text-blue-500">
+                              List of escalation approvals
+                            </p>
+                          </div>
+
+                          <div class="flex">
+                            <svg class="w-6 h-6 text-gray-600 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none"
+                              viewBox="0 0 24 24" stroke="currentColor">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                            </svg>
+                            <p class="ml-2 cursor-pointer hover:underline hover:text-blue-500">
+                              Quality assurance reports
+                            </p>
+                          </div>
+
+                          <div class="flex">
+                            <svg class="w-6 h-6 text-gray-600 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none"
+                              viewBox="0 0 24 24" stroke="currentColor">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                            </svg>
+                            <p class="ml-2 cursor-pointer hover:underline hover:text-blue-500">
+                              Disbursement records or payment certificates
+                            </p>
+                          </div>
+
+                          <div class="flex">
+                            <svg class="w-6 h-6 text-gray-600 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none"
+                              viewBox="0 0 24 24" stroke="currentColor">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                            </svg>
+                            <p class="ml-2 cursor-pointer hover:underline hover:text-blue-500">
+                              Contract amendments
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+
+
+
+
+
+                    </div>
+                  </div>
+
+                  <!-- completion -->
+                  <div *ngIf="phase == 'completion'" class="w-full mr-4 md:w-3/4">
+                    <div class="my-4">
+                      <div class="flex justify-between px-4 py-3 bg-gray-100 border border-gray-200 rounded-t-lg">
+                        <div class="flex items-center">
+                          <img class="w-6 h-6 mr-2 rounded-md"
+                            src="https://avatars3.githubusercontent.com/in/2141?s=60&v=4" alt="" />
+                          <p class="text-sm font-semibold">Completion Phase</p>
+                        </div>
+                      </div>
+                      <div class="hidden text-center border-b border-l border-r rounded-b-lg md:block">
+                        <div class="flex px-4 py-2 text-sm hover:bg-gray-200">
+                          <div class="flex w-1/4">
+                            <p class="ml-2 font-medium cursor-pointer hover:underline hover:text-gray-500">
+                              Project status (current)
+                            </p>
+                          </div>
+                          <p class="w-1/2 text-left cursor-pointer hover:underline hover:text-blue-500">
+                            xxxxxx
+                          </p>
+                        </div>
+
+                        <div class="flex px-4 py-2 text-sm hover:bg-gray-200">
+                          <div class="flex w-1/4">
+                            <p class="ml-2 font-medium cursor-pointer hover:underline hover:text-blue-500">
+                              Completion cost (projected)
+                            </p>
+                          </div>
+                          <p class="w-1/2 text-left cursor-pointer hover:underline hover:text-blue-500">
+                            xxxxxx
+                          </p>
+                        </div>
+
+                        <div class="flex px-4 py-2 text-sm hover:bg-gray-200">
+                          <div class="flex w-1/4">
+                            <p class="ml-2 font-medium cursor-pointer hover:underline hover:text-blue-500">
+                              Completion date (projected)
+                            </p>
+                          </div>
+                          <p class="w-1/2 text-left cursor-pointer hover:underline hover:text-blue-500">
+                            xxxxxx
+                          </p>
+                        </div>
+                      </div>
+                      <div class="py-2 text-center border-b border-l border-r rounded-b-lg md:hidden">
+                        <p class="text-blue-600 cursor-pointer hover:underline">
+                          View code
+                        </p>
+                      </div>
+                    </div>
+                    <div class="py-6 border-b md:border md:rounded-lg md:px-8">
+                      <div class="mb-6">
+                        <div
+                          class="flex items-center pb-2 -mx-4 text-lg font-bold leading-normal text-transparent hover:text-gray-700">
+                          <svg class="w-4 h-4 mr-1 cursor-pointer" fill="none" stroke-linecap="round"
+                            stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                            <path
+                              d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1">
+                            </path>
+                          </svg>
+                          <p class="text-black">
+                            Scope at completion (projected)
+                          </p>
+                        </div>
+                        <hr />
+                        <div class="my-4">
+                          Lorem ipsum dolor sit amet, consectetur adipiscing
+                          elit. Nam dapibus semper ligula volutpat molestie.
+                          Vivamus dictum vestibulum eros, a blandit tortor
+                          feugiat ornare. Fusce interdum sem leo, sed lobortis
+                          odio maximus a. Mauris eros dui, hendrerit a facilisis
+                          non, consequat sit amet erat. Etiam sed eleifend diam.
+                          Nullam accumsan tellus sed metus blandit, eget dictum
+                          justo viverra. Phasellus facilisis convallis velit.
+                          Sed sem metus, volutpat eu quam vehicula, consequat
+                          auctor leo.
+                        </div>
+                      </div>
+                      <div class="mb-6">
+                        <div
+                          class="flex items-center pb-2 -mx-4 text-lg font-bold leading-normal text-transparent hover:text-gray-700">
+                          <svg class="w-4 h-4 mr-1 cursor-pointer" fill="none" stroke-linecap="round"
+                            stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                            <path
+                              d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1">
+                            </path>
+                          </svg>
+                          <p class="text-black">Reasons for project changes</p>
+                        </div>
+                        <hr />
+                        <div class="my-4">
+                          Lorem ipsum dolor sit amet, consectetur adipiscing
+                          elit. Nam dapibus semper ligula volutpat molestie.
+                          Vivamus dictum vestibulum eros, a blandit tortor
+                          feugiat ornare. Fusce interdum sem leo, sed lobortis
+                          odio maximus a. Mauris eros dui, hendrerit a facilisis
+                          non, consequat sit amet erat. Etiam sed eleifend diam.
+                          Nullam accumsan tellus sed metus blandit, eget dictum
+                          justo viverra. Phasellus facilisis convallis velit.
+                          Sed sem metus, volutpat eu quam vehicula, consequat
+                          auctor leo. Curabitur posuere arcu in porta sodales.
+                          Integer ac dignissim lectus. Orci varius natoque
+                          penatibus et magnis dis parturient montes, nascetur
+                          ridiculus mus.
+                        </div>
+                      </div>
+
+                      <div class="mb-6">
+                        <div
+                          class="flex items-center pb-2 -mx-4 text-lg font-bold leading-normal text-transparent hover:text-gray-700">
+                          <svg class="w-4 h-4 mr-1 cursor-pointer" fill="none" stroke-linecap="round"
+                            stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                            <path
+                              d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1">
+                            </path>
+                          </svg>
+                          <p class="text-black">
+                            Reference to audit and evaluation reports
+                          </p>
+                        </div>
+                        <hr />
+                        <div class="my-4" fxLayout="column">
+                          <div class="flex">
+                            <svg class="w-6 h-6 text-gray-600 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none"
+                              viewBox="0 0 24 24" stroke="currentColor">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                            </svg>
+                            <p class="ml-2 cursor-pointer hover:underline hover:text-blue-500">
+                              Report 1
+                            </p>
+                          </div>
+
+                          <div class="flex">
+                            <svg class="w-6 h-6 text-gray-600 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none"
+                              viewBox="0 0 24 24" stroke="currentColor">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                            </svg>
+                            <p class="ml-2 cursor-pointer hover:underline hover:text-blue-500">
+                              Report 2
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+
+
+
+                      <div class="mb-6">
+                        <div
+                          class="flex items-center pb-2 -mx-4 text-lg font-bold leading-normal text-transparent hover:text-gray-700">
+                          <svg class="w-4 h-4 mr-1 cursor-pointer" fill="none" stroke-linecap="round"
+                            stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                            <path
+                              d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1">
+                            </path>
+                          </svg>
+                          <p class="text-black">Completion Documents</p>
+                        </div>
+
+                        <hr />
+                        <div class="my-4" fxLayout="column">
+                          <div class="flex">
+                            <svg class="w-6 h-6 text-gray-600 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none"
+                              viewBox="0 0 24 24" stroke="currentColor">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                            </svg>
+                            <p class="ml-2 cursor-pointer hover:underline hover:text-blue-500">
+                              Implementation progress reports
+                            </p>
+                          </div>
+
+                          <div class="flex">
+                            <svg class="w-6 h-6 text-gray-600 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none"
+                              viewBox="0 0 24 24" stroke="currentColor">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                            </svg>
+                            <p class="ml-2 cursor-pointer hover:underline hover:text-blue-500">
+                              Budget amendment decision
+                            </p>
+                          </div>
+
+                          <div class="flex">
+                            <svg class="w-6 h-6 text-gray-600 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none"
+                              viewBox="0 0 24 24" stroke="currentColor">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                            </svg>
+                            <p class="ml-2 cursor-pointer hover:underline hover:text-blue-500">
+                              Project completion report
+                            </p>
+                          </div>
+
+                          <div class="flex">
+                            <svg class="w-6 h-6 text-gray-600 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none"
+                              viewBox="0 0 24 24" stroke="currentColor">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                            </svg>
+                            <p class="ml-2 cursor-pointer hover:underline hover:text-blue-500">
+                              Project evaluation report
+                            </p>
+                          </div>
+
+                          <div class="flex">
+                            <svg class="w-6 h-6 text-gray-600 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none"
+                              viewBox="0 0 24 24" stroke="currentColor">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                            </svg>
+                            <p class="ml-2 cursor-pointer hover:underline hover:text-blue-500">
+                              Technical audit reports
+                            </p>
+                          </div>
+
+                          <div class="flex">
+                            <svg class="w-6 h-6 text-gray-600 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none"
+                              viewBox="0 0 24 24" stroke="currentColor">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                            </svg>
+                            <p class="ml-2 cursor-pointer hover:underline hover:text-blue-500">
+                              Financial audit reports
+                            </p>
+                          </div>
+
+
+                        </div>
+                      </div>
+
+
+
+
+
+
+
+                    </div>
+                  </div>
+
+                  <div class="ml-4 md:w-1/4">
+                    <div class="px-6 py-6 -mx-10 border-b md:mx-0 md:px-0">
+                      <p class="text-base font-semibold text-black">Download</p>
+                      <div class="flex mt-4">
+                        <div class="flex flex-wrap gap-2 my-4">
+                          <a href="{{baseUrl + '/projects-export?id=' + project.id + '&f=xlsx' }}"
+                            class="px-2 py-1 text-xs leading-none text-gray-600 bg-yellow-100 rounded-full hover:bg-yellow-200">xlsx</a>
+                          <a href="{{baseUrl + '/projects-export?id=' + project.id + '&f=csv' }}"
+                            class="px-2 py-1 text-xs leading-none text-gray-600 bg-yellow-100 rounded-full hover:bg-yellow-200">csv</a>
+                          <a target="_blank" href="{{baseUrl + '/projects?id=' + project.id}}"
+                            class="px-2 py-1 text-xs leading-none text-gray-600 bg-yellow-100 rounded-full hover:bg-yellow-200">JSON</a>
+                        </div>
+                      </div>
+                    </div>
+                    <agm-map *ngIf="lat" [latitude]="lat" [longitude]="lon">
+                      <agm-marker [latitude]="lat" [longitude]="lon">
+                      </agm-marker>
+                    </agm-map>
+
+
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <app-mainfooter></app-mainfooter>
+</div>

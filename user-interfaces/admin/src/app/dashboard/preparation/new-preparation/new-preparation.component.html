@@ -1,0 +1,277 @@
+<div class="h-12 mb-5 bg-white shadow-sm">
+  <h1 class="py-2 pl-4 text-sm">
+    Preparation
+  </h1>
+</div>
+
+
+
+
+<div class="px-3.5">
+  <section class="text-gray-600 bg-white">
+    <div class="mx-auto">
+      <div class="pt-8 mx-16 overflow-auto">
+        <mat-horizontal-stepper linear class=" mx-7" #stepper>
+          <mat-step [stepControl]="preparationForm">
+            <ng-template matStepLabel>
+              <span>Preparation</span>
+            </ng-template>
+            <form [formGroup]="preparationForm" *ngIf="!isLoading">
+              <div class="mt-5 grid grid-cols-1">
+                <label class="flex items-center justify-between text-xs text-gray-500 capitalize md:text-sm text-light">
+                  <span>
+                    <span>Select Project: </span>
+                    <svg *ngIf="project?.valid" [ngClass]="{ 'text-green-500': project?.valid && (project?.touched || project?.dirty) }" class="inline-block w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                    <svg *ngIf="project?.invalid" [ngClass]="{ 'text-red-500': project?.invalid && (project?.touched || project?.dirty) }" class="inline-block w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"></path></svg>
+                  </span>
+                </label>
+                <input
+                    formControlName="project_id"
+                    [matAutocomplete]="auto"
+                    [ngClass]="{ 'border-2 border-red-400 focus:ring-2 focus:ring-red-600': (project?.invalid && (project?.touched || project?.dirty)), 'border-2 border-green-400 focus:ring-2 focus:ring-green-600': project?.valid && (project?.touched || project?.dirty) }"
+                    class="px-2 py-1 mt-1 border-2 border-gray-400 rounded focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-transparent"
+                    type="search"
+                    placeholder="Choose Project" />
+                  <mat-autocomplete (optionSelected)="getProjectDetails($event.option.value)" #auto="matAutocomplete" [displayWith]="displayStateProjects" required>
+                    <mat-option *ngFor="let project of filteredProjects | async" [value]="project">
+                      <span class="text-sm font-bold text-gray-700">
+                        <span>{{ project?.process_number_standard }} - <span class="text-xs">{{ project?.project_name }}</span></span>
+                      </span>
+                    </mat-option>
+                  </mat-autocomplete>
+                  <mat-error *ngIf="project?.errors && project?.touched" class="flex text-xs text-red-500 capitalize">
+                    <mat-error *ngIf="project?.errors?.required">
+                      Project is required
+                    </mat-error>
+                  </mat-error>
+              </div>
+              <div class="mt-5 grid grid-cols-1">
+                <label class="text-xs text-gray-500 capitalize md:text-sm text-light ">Scope:
+                  <svg *ngIf="scope?.valid" [ngClass]="{ 'text-green-500': scope?.valid && (scope?.touched || scope?.dirty) }" class="inline-block w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                  <svg *ngIf="scope?.invalid" [ngClass]="{ 'text-red-500': scope?.invalid && (scope?.touched || scope?.dirty) }" class="inline-block w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"></path></svg>
+                </label>
+                <textarea
+                  formControlName="scope"
+                  [ngClass]="{ 'border-2 border-red-400 focus:ring-2 focus:ring-red-600':  (scope?.invalid && (scope?.touched || scope?.dirty)), 'border-2 border-green-400 focus:ring-2 focus:ring-green-600': scope?.valid && (scope?.touched || scope?.dirty) }"
+                  class="h-32 px-2 py-1 mt-1 border-2 border-gray-400 rounded resize-none focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-transparent"
+                  type="text"
+                  placeholder=""></textarea>
+              </div>
+              <div *ngIf="scope?.errors && scope?.touched" class="text-xs text-red-500 capitalize">
+                <div *ngIf="scope?.errors?.required">
+                  Scope is required
+                </div>
+              </div>
+              <div class="mt-5 grid grid-cols-1">
+                <label class="flex items-center justify-between text-xs text-gray-500 capitalize md:text-sm text-light">
+                  <span>
+                    <span>Acquisition Entity: </span>
+                    <svg *ngIf="acquisitionEntity?.valid" [ngClass]="{ 'text-green-500': acquisitionEntity?.valid && (acquisitionEntity?.touched || acquisitionEntity?.dirty) }" class="inline-block w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                    <svg *ngIf="acquisitionEntity?.invalid" [ngClass]="{ 'text-red-500': acquisitionEntity?.invalid && (acquisitionEntity?.touched || acquisitionEntity?.dirty) }" class="inline-block w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"></path></svg>
+                  </span>
+                </label>
+                <input
+                    formControlName="acquisition_entity_id"
+                    [matAutocomplete]="autoAcquisition"
+                    [ngClass]="{ 'border-2 border-red-400 focus:ring-2 focus:ring-red-600': (acquisitionEntity?.invalid && (acquisitionEntity?.touched || acquisitionEntity?.dirty)), 'border-2 border-green-400 focus:ring-2 focus:ring-green-600': acquisitionEntity?.valid && (acquisitionEntity?.touched || acquisitionEntity?.dirty) }"
+                    class="px-2 py-1 mt-1 border-2 border-gray-400 rounded focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-transparent"
+                    type="search"
+                    placeholder="Choose Acquisition Entity" />
+                  <mat-autocomplete #autoAcquisition="matAutocomplete" [displayWith]="displayStateOrganizationUnits" required>
+                    <mat-option *ngFor="let entity of fileteredOrganizationUnits | async" [value]="entity">
+                      <span class="text-sm font-bold text-gray-700">
+                        <span>{{ entity?.name }}</span>
+                      </span>
+                    </mat-option>
+                  </mat-autocomplete>
+              </div>
+              <div class="flex mt-5 space-x-4">
+                <div class="w-1/2 mt-5 grid grid-cols-1">
+                  <label class="flex items-center justify-between text-xs text-gray-500 capitalize md:text-sm text-light">
+                    <span>
+                      <span>Currency: </span>
+                      <svg *ngIf="currency?.valid" [ngClass]="{ 'text-green-500': currency?.valid && (currency?.touched || currency?.dirty) }" class="inline-block w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                      <svg *ngIf="currency?.invalid" [ngClass]="{ 'text-red-500': currency?.invalid && (currency?.touched || currency?.dirty) }" class="inline-block w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"></path></svg>
+                    </span>
+                  </label>
+                  <input
+                    formControlName="currency_id"
+                    [matAutocomplete]="autoCurrency"
+                    [ngClass]="{ 'border-2 border-red-400 focus:ring-2 focus:ring-red-600': (currency?.invalid && (currency?.touched || currency?.dirty)), 'border-2 border-green-400 focus:ring-2 focus:ring-green-600': currency?.valid && (currency?.touched || currency?.dirty) }"
+                    class="px-2 py-1 mt-1 border-2 border-gray-400 rounded focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-transparent"
+                    type="search"
+                    placeholder="Choose Currency" />
+                  <mat-autocomplete #autoCurrency="matAutocomplete" [displayWith]="displayStateCurrencies" required>
+                    <mat-option *ngFor="let currency of filteredCurrencies | async" [value]="currency">
+                      <span class="text-sm font-bold text-gray-700">
+                        <span>{{ currency?.code }}</span>
+                      </span>
+                    </mat-option>
+                  </mat-autocomplete>
+                </div>
+                <div class="w-1/2 mt-5 grid grid-cols-1">
+                  <label class="flex items-center justify-between text-xs text-gray-500 capitalize md:text-sm text-light">
+                    <span>
+                      <span>Budget: </span>
+                      <svg *ngIf="acquisitionEntity?.valid" [ngClass]="{ 'text-green-500': acquisitionEntity?.valid && (acquisitionEntity?.touched || acquisitionEntity?.dirty) }" class="inline-block w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                      <svg *ngIf="acquisitionEntity?.invalid" [ngClass]="{ 'text-red-500': acquisitionEntity?.invalid && (acquisitionEntity?.touched || acquisitionEntity?.dirty) }" class="inline-block w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"></path></svg>
+                    </span>
+                  </label>
+                  <input
+                    formControlName="budget"
+                    [ngClass]="{ 'border-2 border-red-400 focus:ring-2 focus:ring-red-600': (budget?.invalid && (budget?.touched || budget?.dirty)), 'border-2 border-green-400 focus:ring-2 focus:ring-green-600': budget?.valid && (budget?.touched || budget?.dirty) }"
+                    class="px-2 py-1 mt-1 border-2 border-gray-400 rounded focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-transparent"
+                    type="text"
+                    placeholder="" />
+                </div>
+              </div>
+              <div class="flex mt-5 space-x-4">
+                <div class="w-1/2 mt-5 grid grid-cols-1">
+                  <label class="text-xs text-gray-500 capitalize md:text-sm text-light ">Budget Approval Date: </label>
+                  <input formControlName="budget_approval_date" class="px-2 py-1 mt-1 border-2 border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-transparent" type="date" placeholder="" />
+                </div>
+                <div class="w-1/2 mt-5 grid grid-cols-1">
+                  <label class="flex items-center justify-between text-xs text-gray-500 capitalize md:text-sm text-light">
+                    <span>
+                      <span>Environmental Category: </span>
+                      <svg *ngIf="environmentalCategory?.valid" [ngClass]="{ 'text-green-500': environmentalCategory?.valid && (environmentalCategory?.touched || environmentalCategory?.dirty) }" class="inline-block w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                      <svg *ngIf="environmentalCategory?.invalid" [ngClass]="{ 'text-red-500': environmentalCategory?.invalid && (environmentalCategory?.touched || environmentalCategory?.dirty) }" class="inline-block w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"></path></svg>
+                    </span>
+                  </label>
+                  <input
+                    formControlName="environmental_category_id"
+                    [matAutocomplete]="autoEnvironmentalCategory"
+                    [ngClass]="{ 'border-2 border-red-400 focus:ring-2 focus:ring-red-600': (environmentalCategory?.invalid && (environmentalCategory?.touched || environmentalCategory?.dirty)), 'border-2 border-green-400 focus:ring-2 focus:ring-green-600': currency?.valid && (environmentalCategory?.touched || environmentalCategory?.dirty) }"
+                    class="px-2 py-1 mt-1 border-2 border-gray-400 rounded focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-transparent"
+                    type="search"
+                    placeholder="Choose Environmental Category" />
+                  <mat-autocomplete #autoEnvironmentalCategory="matAutocomplete" [displayWith]="displayStateEnvironmantalcategories" required>
+                    <mat-option *ngFor="let category of fileteredEnvironmentalCategories | async" [value]="category">
+                      <span class="text-sm font-bold text-gray-700">
+                        <span>{{ category?.name }}</span>
+                      </span>
+                    </mat-option>
+                  </mat-autocomplete>
+                </div>
+              </div>
+              <div class="flex mt-5 space-x-4">
+                <div class="w-1/2 mt-5 grid grid-cols-1">
+                  <label class="text-xs text-gray-500 capitalize md:text-sm text-light ">Period From: </label>
+                  <input formControlName="period_from" class="px-2 py-1 mt-1 border-2 border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-transparent" type="date" placeholder="" />
+                </div>
+                <div class="w-1/2 mt-5 grid grid-cols-1">
+                  <label class="text-xs text-gray-500 capitalize md:text-sm text-light ">Period Untill: </label>
+                  <input formControlName="period_until" class="px-2 py-1 mt-1 border-2 border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-transparent" type="date" placeholder="" />
+                </div>
+              </div>
+
+              <div class="flex mt-5 space-x-4">
+                <div class="w-1/2 grid grid-cols-1">
+                  <label class="flex items-center justify-between text-xs text-gray-500 capitalize md:text-sm text-light">
+                    <span>
+                      <span>Standard Status: </span>
+                      <svg *ngIf="standardStatus?.valid" [ngClass]="{ 'text-green-500': standardStatus?.valid && (standardStatus?.touched || standardStatus?.dirty) }" class="inline-block w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                      <svg *ngIf="standardStatus?.invalid" [ngClass]="{ 'text-red-500': standardStatus?.invalid && (standardStatus?.touched || standardStatus?.dirty) }" class="inline-block w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"></path></svg>
+                    </span>
+                  </label>
+                  <input
+                    formControlName="standard_status_id"
+                    [matAutocomplete]="autoStandardstatuses"
+                    [ngClass]="{ 'border-2 border-red-400 focus:ring-2 focus:ring-red-600': (standardStatus?.invalid && (standardStatus?.touched || standardStatus?.dirty)), 'border-2 border-green-400 focus:ring-2 focus:ring-green-600': standardStatus?.valid && (standardStatus?.touched || standardStatus?.dirty) }"
+                    class="px-2 py-1 mt-1 border-2 border-gray-400 rounded focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-transparent"
+                    type="search"
+                    placeholder="Choose Standard Status" />
+                  <mat-autocomplete #autoStandardstatuses="matAutocomplete" [displayWith]="displayStateStandardstatus" required>
+                    <mat-option *ngFor="let standardstatus of filteredStandardstatuses | async" [value]="standardstatus">
+                      <span class="text-xs font-bold text-gray-700 capitalize">{{standardstatus?.name_local }}</span>
+                    </mat-option>
+                  </mat-autocomplete>
+                  <div *ngIf="standardStatus?.errors && standardStatus?.touched" class="pt-2 text-xs text-red-500 capitalize">
+                    <div *ngIf="standardStatus?.errors?.required">
+                      Standard Status is required
+                    </div>
+                  </div>
+                </div>
+
+                <div class="w-1/2 grid grid-cols-1" *ngIf="!_authService.isPublisher()">
+                  <label class="flex items-center justify-between text-xs text-gray-500 capitalize md:text-sm text-light">
+                    <span>
+                      <span>Status: </span>
+                      <svg *ngIf="status?.valid" [ngClass]="{ 'text-green-500': status?.valid && (status?.touched || status?.dirty) }" class="inline-block w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                      <svg *ngIf="status?.invalid" [ngClass]="{ 'text-red-500': status?.invalid && (status?.touched || status?.dirty) }" class="inline-block w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"></path></svg>
+                    </span>
+                  </label>
+                  <input
+                    formControlName="status_id"
+                    [matAutocomplete]="autoStatuses"
+                    [ngClass]="{ 'border-2 border-red-400 focus:ring-2 focus:ring-red-600': (status?.invalid && (status?.touched || status?.dirty)), 'border-2 border-green-400 focus:ring-2 focus:ring-green-600': status?.valid && (status?.touched || status?.dirty) }"
+                    class="px-2 py-1 mt-1 border-2 border-gray-400 rounded focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-transparent"
+                    type="search"
+                    placeholder="Choose Status" />
+                  <mat-autocomplete #autoStatuses="matAutocomplete" [displayWith]="displayStateStatus" required>
+                    <mat-option *ngFor="let status of filteredStatuses | async" [value]="status">
+                      <span class="text-xs font-bold text-gray-700 capitalize">{{status?.title }}</span>
+                    </mat-option>
+                  </mat-autocomplete>
+                  <div *ngIf="status?.errors && status?.touched" class="pt-2 text-xs text-red-500 capitalize">
+                    <div *ngIf="status?.errors?.required">
+                      Status is required
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="flex justify-end my-4" *ngIf="!savedPreparationInfo">
+               <div class="space-x-4">
+                <button type="button" mat-stroked-button [routerLink]="['/dashboard/preparation']" class="text-gray-800 border border-gray-100">Cancel</button>
+                <button [disabled]="preparationForm.invalid" type="button" color="primary" (click)="savePreparation(preparationForm, stepper)" mat-flat-button  class="text-white bg-blue-400">Save Preparation</button>
+               </div>
+              </div>
+            </form>
+            <div *ngIf="isLoading">
+              <svg fill="none" viewBox="0 0 24 24" class="w-8 h-8 animate-spin loader-primary"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+            </div>
+          </mat-step>
+          <mat-step [stepControl]="locationFormStep">
+            <ng-template matStepLabel>Financing Sources</ng-template>
+            <button type="button" (click)="openFundingSourceDialog()" mat-flat-button  class="text-white dialog-btn">Add Financing Sources</button>
+            <div *ngIf="projectFundingSources?.data?.length && !isRequestLoading">
+              <app-funding-source-list [addedProjectFundingSources]="projectFundingSources" (deleteEvent)="deleteFundingSource($event)"></app-funding-source-list>
+            </div>
+            <div class="flex justify-end my-4">
+              <div class="space-x-4">
+               <button type="button" mat-stroked-button matStepperPrevious class="text-gray-800 border border-gray-100">Back</button>
+               <button type="button" (click)="nextLocation(stepper)" mat-flat-button  class="text-white bg-blue-400">Next</button>
+              </div>
+             </div>
+          </mat-step>
+          <mat-step [stepControl]="documentFormStep">
+            <ng-template matStepLabel>Documents</ng-template>
+            <button type="button" (click)="openDocumentDialog()" mat-flat-button  class="text-white dialog-btn">Add Document</button>
+            <div *ngIf="documents?.data?.length && !isRequestLoading">
+              <app-preparation-document-list [addedDocuments]="documents" (deleteEvent)="deletePreparationDocument($event)"></app-preparation-document-list>
+            </div>
+            <div class="flex justify-end my-4">
+              <div class="space-x-4">
+               <button type="button" mat-stroked-button matStepperPrevious class="text-gray-800 border border-gray-100">Back</button>
+              </div>
+             </div>
+          </mat-step>
+        </mat-horizontal-stepper>
+      </div>
+    </div>
+  </section>
+
+
+
+</div>
+
+<div *ngIf="isRequestLoading">
+  <div class="fixed top-0 left-0 z-50 block w-full h-full bg-white opacity-75">
+    <span class="relative block w-0 h-0 mx-auto my-0 text-green-500 opacity-75 top-1/2" style="top: 50%;">
+    </span>
+    <div class="flex items-center justify-center h-screen">
+      <img class="items-center" src="../../../../assets/logo/loader-gif/sisocs-loader.gif" alt="">
+    </div>
+  </div>
+</div>

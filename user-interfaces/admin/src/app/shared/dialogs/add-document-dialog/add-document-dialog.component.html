@@ -1,0 +1,160 @@
+<div *ngIf="!isLoading" class="overflow-y-auto dialog-height scrollbar-hide">
+  <div class="py-2 text-lg">
+    Add Document
+  </div>
+  <div class="mx-1">
+    <form [formGroup]="documentForm">
+      <div class="my-1 grid grid-cols-1">
+        <label class="flex items-center justify-between text-xs text-gray-500 capitalize md:text-sm text-light">
+          <span>
+            <span>Document Type: </span>
+            <svg *ngIf="documentType?.valid && documentType?.touched" [ngClass]="{ 'text-green-500': documentType?.valid && (documentType?.dirty) }" class="inline-block w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+          </span>
+          <svg
+            matTooltip="Choose Document Type from the dropdown menu"
+            [matTooltipPosition]="positionOptions[2]"
+            class="inline-block w-4 h-4 hover:text-blue-500 focus:text-blue-500 hover:cursor-pointer" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
+        </label>
+        <input
+          formControlName="document_type_id"
+          [matAutocomplete]="auto"
+          [ngClass]="{ 'border-2 border-red-400 focus:ring-2 focus:ring-red-600': (documentType?.invalid && (documentType?.touched || documentType?.dirty)), 'border-2 border-green-400 focus:ring-2 focus:ring-green-600': documentType?.valid && (documentType?.touched || documentType?.dirty) }"
+          class="px-2 py-1 mt-1 border-2 border-gray-400 rounded focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-transparent"
+          type="search"
+          placeholder="Choose Document Type" />
+        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayStateDocumentTypes" required>
+          <mat-option *ngFor="let type of fileteredDocumentTypes | async" [value]="type">
+            <span class="text-xs font-bold text-gray-700 uppercase">{{ type?.type_local }}</span>
+          </mat-option>
+        </mat-autocomplete>
+        <div *ngIf="documentType?.errors && documentType?.touched" class="pt-2 text-xs text-red-500 capitalize">
+          <div *ngIf="documentType?.errors?.required">
+            Document Type is required
+          </div>
+        </div>
+      </div>
+      <div class="my-1 grid grid-cols-1">
+        <label class="flex items-center justify-between text-xs text-gray-500 capitalize md:text-sm text-light">
+          <span>
+            <span>Document File: </span>
+            <svg *ngIf="documentFile?.valid && documentFile?.touched" [ngClass]="{ 'text-green-500': documentFile?.valid && (documentFile?.dirty) }" class="inline-block w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+          </span>
+        </label>
+        <div (click)="fileInput.click()" [ngClass]="{'border-red-500': (documentFile?.invalid && !file?.name) , 'border-green-500': file?.name }" class="flex flex-col items-center w-full px-2 py-2 my-2 tracking-wide text-gray-500 uppercase bg-white border rounded shadow cursor-pointer hover:border-gray-500 hover:text-gray-500 hover:border">
+          <svg class="w-4 h-4" [ngClass]="{'text-green-500': file?.name }" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+            <path d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z" />
+          </svg>
+          <span class="mt-2 text-xs leading-normal">{{ file ? file.name : 'Select a document file' }}</span>
+        </div>
+        <!-- <div (click)="fileInput.click()" class="flex flex-col items-center w-full px-2 py-2 my-2 tracking-wide text-gray-500 uppercase bg-white border rounded shadow cursor-pointer hover:border-gray-500 hover:text-gray-500 hover:border">
+          <svg class="w-4 h-4" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+              <path d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z" />
+          </svg>
+          <span class="mt-2 text-xs leading-normal">Select a document file</span>
+          <input
+            formControlName="document"
+            [ngClass]="{ 'border-2 border-red-400 focus:ring-2 focus:ring-red-600': (documentFile?.invalid && (documentFile?.touched || documentFile?.dirty)), 'border-2 border-green-400 focus:ring-2 focus:ring-green-600': documentFile?.valid && (documentFile?.touched || documentFile?.dirty) }"
+            class="hidden px-2 py-1 mt-1 border-2 border-gray-400 rounded focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-transparent"
+            type='file'
+            placeholder="Upload Document File"/>
+        </div> -->
+        <input
+          formControlName="document"
+          [ngClass]="{ 'border-2 border-red-400 focus:ring-2 focus:ring-red-600': (documentFile?.invalid && (documentFile?.touched || documentFile?.dirty)), 'border-2 border-green-400 focus:ring-2 focus:ring-green-600': documentFile?.valid && (documentFile?.touched || documentFile?.dirty), 'border-2':  documentFile?.untouched}"
+          class="hidden px-2 py-1 mt-1 border-2 border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-transparent"
+          type="file"
+          #fileInput (change)="onFileInput(fileInput.files)"
+          placeholder="" />
+        <div *ngIf="documentFile?.errors && documentFile?.touched" class="pt-2 text-xs text-red-500 capitalize">
+          <div *ngIf="documentFile?.errors?.required">
+            Document File is required
+          </div>
+        </div>
+      </div>
+      <div class="flex my-1 space-x-4">
+        <div class="w-1/2 grid grid-cols-1">
+          <label class="flex items-center justify-between text-xs text-gray-500 capitalize md:text-sm text-light">
+            <span>
+              <span>Qualification: </span>
+              <svg *ngIf="qualification?.valid && qualification?.touched" [ngClass]="{ 'text-green-500': qualification?.valid && (qualification?.dirty) }" class="inline-block w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+            </span>
+          </label>
+          <input formControlName="qualification" class="px-2 py-1 mt-1 border-2 border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-transparent" type="text" placeholder="" />
+        </div>
+        <div class="w-1/2 grid grid-cols-1">
+          <label class="flex items-center justify-between text-xs text-gray-500 capitalize md:text-sm text-light">
+            <span>
+              <span>Author: </span>
+              <svg *ngIf="author?.valid && author?.touched" [ngClass]="{ 'text-green-500': author?.valid && (author?.dirty) }" class="inline-block w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+            </span>
+          </label>
+          <input formControlName="author" class="px-2 py-1 mt-1 border-2 border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-transparent" type="text" placeholder="" />
+        </div>
+      </div>
+      <div class="my-1 grid grid-cols-1">
+        <label class="flex items-center justify-between text-xs text-gray-500 capitalize md:text-sm text-light">
+          <span>
+            <span>Description: </span>
+            <svg *ngIf="description?.valid && description?.touched" [ngClass]="{ 'text-green-500': description?.valid && (description?.dirty) }" class="inline-block w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+          </span>
+        </label>
+        <textarea formControlName="description" class="h-20 px-2 py-1 mt-1 border-2 border-gray-300 rounded resize-none focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-transparent" type="text" placeholder=""></textarea>
+      </div>
+      <div class="flex my-1 space-x-4">
+        <div class="w-1/2 grid grid-cols-1">
+          <label class="flex items-center justify-between text-xs text-gray-500 capitalize md:text-sm text-light">
+            <span>
+              <span>Language: </span>
+              <svg *ngIf="language?.valid && language?.touched" [ngClass]="{ 'text-green-500': language?.valid || language?.dirty }" class="inline-block w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+            </span>
+          </label>
+          <select formControlName="language" class="px-2 py-1 mt-1 border-2 border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-transparent">
+            <option *ngFor="let language of languages" class="text-xs font-bold uppercase">{{ language.value }}</option>
+          </select>
+        </div>
+        <div class="w-1/2 grid grid-cols-1">
+          <label class="flex items-center justify-between text-xs text-gray-500 capitalize md:text-sm text-light">
+            <span>
+              <span>Publication Date: </span>
+              <svg *ngIf="publicationDate?.valid && publicationDate?.touched" [ngClass]="{ 'text-green-500': publicationDate?.valid && (publicationDate?.dirty) }" class="inline-block w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+            </span>
+          </label>
+          <input formControlName="publication_date" class="px-2 py-1 mt-1 border-2 border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-transparent" type="date" placeholder="" />
+        </div>
+      </div>
+
+      <div class="flex my-1 space-x-4">
+        <div class="w-1/2 grid grid-cols-1">
+          <label class="flex items-center justify-between text-xs text-gray-500 capitalize md:text-sm text-light">
+            <span>
+              <span>Home Page: </span>
+              <svg *ngIf="homePage?.valid && homePage?.touched" [ngClass]="{ 'text-green-500': homePage?.valid && (homePage?.dirty) }" class="inline-block w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+            </span>
+          </label>
+          <input formControlName="home_page" class="px-2 py-1 mt-1 border-2 border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-transparent" type="text" placeholder="" />
+        </div>
+        <div class="w-1/2 grid grid-cols-1">
+          <label class="flex items-center justify-between text-xs text-gray-500 capitalize md:text-sm text-light">
+            <span>
+              <span>Final Page: </span>
+              <svg *ngIf="finalPage?.valid && finalPage?.touched" [ngClass]="{ 'text-green-500': finalPage?.valid && (finalPage?.dirty) }" class="inline-block w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+            </span>
+          </label>
+          <input formControlName="final_page" class="px-2 py-1 mt-1 border-2 border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-transparent" type="text" placeholder="" />
+        </div>
+      </div>
+
+      <div class="flex justify-end my-2">
+        <div class="mt-4 space-x-4">
+         <button type="button" (click)="closeDialog()" mat-stroked-button class="text-gray-800 border border-gray-100">Cancel</button>
+         <button [disabled]="documentForm.invalid" type="button" color="primary" (click)="saveDocument(documentForm)" mat-flat-button  class="text-white bg-blue-400">Save</button>
+        </div>
+       </div>
+    </form>
+  </div>
+</div>
+
+<div *ngIf="isLoading" class="flex justify-center">
+  <img src="../../../../assets/logo/loader-gif/sisocs-loader.gif" alt="">
+</div>
+

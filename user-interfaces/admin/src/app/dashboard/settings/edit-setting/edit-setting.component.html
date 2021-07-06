@@ -1,0 +1,58 @@
+<div class="h-12 mb-5 bg-white shadow-sm">
+  <h1 class="py-2 pl-4 text-sm">
+    Settings
+  </h1>
+</div>
+
+
+
+
+<div class="px-3.5">
+
+  <section class="text-gray-600 bg-white">
+    <div class="mx-auto" *ngIf="!isLoading">
+      <div class="px-2 pt-16 overflow-auto mx-14">
+          <div>
+            <h1>
+              General Settings
+            </h1>
+          </div>
+          <div>
+            <form [formGroup]="settingForm">
+              <div class="mt-5 grid grid-cols-1">
+                <label class="text-xs text-gray-500 capitalize md:text-sm text-light ">Organization: </label>
+                <input formControlName="organization" class="px-2 py-1 mt-1 border-2 border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-transparent" type="text" placeholder="" />
+              </div>
+              <div class="mt-5 grid grid-cols-1">
+                <label class="text-xs text-gray-500 capitalize md:text-sm text-light ">Publisher name: </label>
+                <input formControlName="publisher" class="px-2 py-1 mt-1 border-2 border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-transparent" type="text" placeholder="" />
+              </div>
+              <div class="mt-5 grid grid-cols-1">
+                <label class="text-xs text-gray-500 capitalize md:text-sm text-light ">Currency: </label>
+                <select formControlName="currency" class="px-2 py-1 mt-1 border-2 border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-transparent">
+                  <option *ngFor="let currency of currencies">{{ currency.title}}</option>
+                </select>
+              </div>
+              <div class="mt-5 grid grid-cols-1">
+                <label class="text-xs text-gray-500 capitalize md:text-sm text-light ">Publication Date: </label>
+                <input formControlName="publication_date" class="px-2 py-1 mt-1 border-2 border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-transparent" type="date" placeholder="" />
+              </div>
+              <div class="flex justify-start my-4">
+               <div class="space-x-4">
+                <button type="button" mat-stroked-button class="text-gray-800 border border-gray-100">Cancel</button>
+                <button type="button" (click)="saveSetting(settingForm)" mat-flat-button  class="text-white bg-blue-400">Save</button>
+               </div>
+              </div>
+            </form>
+          </div>
+      </div>
+    </div>
+  </section>
+
+
+
+</div>
+
+<!-- <div *ngIf="isLoading">
+  <app-list-loader></app-list-loader>
+</div> -->

@@ -1,0 +1,6 @@
+api/v 1/.env
+api/v 1/vendor
+user-interfaces/public/node_modules
+user-interfaces/public/dist
+user-interfaces/admin/node_modules
+user-interfaces/admin/dist

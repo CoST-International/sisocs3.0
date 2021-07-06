@@ -1,0 +1,188 @@
+<div class="h-12 mb-5 bg-white shadow-sm">
+  <h1 class="py-2 pl-4 text-sm">
+    User Management
+  </h1>
+</div>
+
+<div class="px-3.5">
+  <section class="text-gray-600 bg-white">
+    <div class="mx-auto">
+      <div class="pt-12 mx-2 overflow-auto sm:mx-16">
+        <form [formGroup]="userForm" *ngIf="!isLoading">
+          <div class="flex mx-2 mt-5 space-x-4">
+            <div class="w-1/2 grid grid-cols-1">
+              <label class="text-xs text-gray-500 capitalize md:text-sm text-light ">
+                User Name:
+                <svg *ngIf="name?.valid" [ngClass]="{ 'text-green-500': name?.valid && (name?.touched || name?.dirty) }" class="inline-block w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                <svg *ngIf="name?.invalid" [ngClass]="{ 'text-red-500': name?.invalid && (name?.touched || name?.dirty) }" class="inline-block w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"></path></svg>
+              </label>
+              <input
+                formControlName="name"
+                [ngClass]="{ 'border-2 border-red-400 focus:ring-2 focus:ring-red-600': (name?.invalid && (name?.touched || name?.dirty)), 'border-2 border-green-400 focus:ring-2 focus:ring-green-600': name?.valid && (name?.touched || name?.dirty) }"
+                class="px-2 py-1 mt-1 border-2 border-gray-400 rounded focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-transparent"
+                type="text"
+                placeholder="Name" />
+              <span *ngIf="name?.errors && name?.touched" class="pt-2 text-xs text-red-500 capitalize">
+                <span *ngIf="name?.errors?.required">
+                  User Name is required
+                </span>
+                <span *ngIf="name?.errors?.minLength">
+                  User Name should have atleast 3 characters
+                </span>
+              </span>
+            </div>
+            <div class="w-1/2 grid grid-cols-1">
+              <label class="text-xs text-gray-500 capitalize md:text-sm text-light ">
+                User Email:
+                <svg *ngIf="email?.valid" [ngClass]="{ 'text-green-500': email?.valid && (email?.touched || email?.dirty) }" class="inline-block w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                <svg *ngIf="email?.invalid" [ngClass]="{ 'text-red-500': email?.invalid && (email?.touched || email?.dirty) }" class="inline-block w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"></path></svg>
+              </label>
+              <input
+                formControlName="email"
+                [ngClass]="{ 'border-2 border-red-400 focus:ring-2 focus:ring-red-600': (email?.invalid && (email?.touched || email?.dirty)), 'border-2 border-green-400 focus:ring-2 focus:ring-green-600': email?.valid && (email?.touched || email?.dirty) }"
+                class="px-2 py-1 mt-1 border-2 border-gray-400 rounded focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-transparent"
+                type="email"
+                readonly
+                placeholder="Email" />
+              <span *ngIf="email?.errors && email?.touched" class="pt-2 text-xs text-red-500 capitalize">
+                <span *ngIf="email?.errors?.required">
+                  User Email is required
+                </span>
+                <span *ngIf="email?.errors?.email">
+                  User Email should be valid
+                </span>
+              </span>
+            </div>
+          </div>
+
+          <div class="flex mx-2 mt-5 space-x-4">
+            <div class="w-1/2 grid grid-cols-1">
+              <label class="flex items-center justify-between text-xs text-gray-500 capitalize md:text-sm text-light">
+                <span>
+                  <span>Organization:</span>
+                  <svg *ngIf="responsibleOrganization?.valid" [ngClass]="{ 'text-green-500': responsibleOrganization?.valid && (responsibleOrganization?.touched || responsibleOrganization?.dirty) }" class="inline-block w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                  <svg *ngIf="responsibleOrganization?.invalid" [ngClass]="{ 'text-red-500': responsibleOrganization?.invalid && (responsibleOrganization?.touched || responsibleOrganization?.dirty) }" class="inline-block w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"></path></svg>
+                </span>
+                <svg
+                  matTooltip="Choose Entity/Organization from the dropdown menu"
+                  [matTooltipPosition]="positionOptions[2]"
+                  class="inline-block w-4 h-4 hover:text-blue-500 focus:text-blue-500 hover:cursor-pointer" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
+              </label>
+              <input
+                formControlName="organization_id"
+                [matAutocomplete]="auto"
+                [ngClass]="{ 'border-2 border-red-400 focus:ring-2 focus:ring-red-600': (responsibleOrganization?.invalid && (responsibleOrganization?.touched || responsibleOrganization?.dirty)), 'border-2 border-green-400 focus:ring-2 focus:ring-green-600': responsibleOrganization?.valid && (responsibleOrganization?.touched || responsibleOrganization?.dirty) }"
+                class="px-2 py-1 mt-1 border-2 border-gray-400 rounded focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-transparent"
+                type="search"
+                placeholder="Choose Project Manager" />
+              <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayState" required>
+                <mat-option *ngFor="let item of filteredResponsibleOrganizations | async" [value]="item">
+                  <span class="text-xs font-bold text-gray-700 uppercase">{{ item?.organization_name }} - <span>{{ item?.identifier }}</span></span>
+                </mat-option>
+              </mat-autocomplete>
+              <mat-error *ngIf="responsibleOrganization?.errors && responsibleOrganization?.touched" class="flex text-xs text-red-500 capitalize">
+                <mat-error *ngIf="responsibleOrganization?.errors?.required">
+                  Organization is required
+                </mat-error>
+              </mat-error>
+            </div>
+
+            <div class="w-1/2 grid grid-cols-1">
+              <label class="flex items-center justify-between text-xs text-gray-500 capitalize md:text-sm text-light">
+                <span>
+                  <span>User Role: </span>
+                  <svg *ngIf="role?.valid" [ngClass]="{ 'text-green-500': role?.valid && (role?.touched || role?.dirty) }" class="inline-block w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                  <svg *ngIf="role?.invalid" [ngClass]="{ 'text-red-500': role?.invalid && (role?.touched || role?.dirty) }" class="inline-block w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"></path></svg>
+                </span>
+                <svg
+                  matTooltip="Choose an appropriate role for the user"
+                  [matTooltipPosition]="positionOptions[2]"
+                  class="inline-block w-4 h-4 hover:text-blue-500 focus:text-blue-500 hover:cursor-pointer" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
+              </label>
+              <input
+                formControlName="role_id"
+                [matAutocomplete]="autoRoles"
+                [ngClass]="{ 'border-2 border-red-400 focus:ring-2 focus:ring-red-600': (role?.invalid && (role?.touched || role?.dirty)), 'border-2 border-green-400 focus:ring-2 focus:ring-green-600': role?.valid && (role?.touched || role?.dirty) }"
+                class="px-2 py-1 mt-1 border-2 border-gray-400 rounded focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-transparent"
+                type="search"
+                placeholder="Choose a role" />
+              <mat-autocomplete #autoRoles="matAutocomplete" [displayWith]="displayStateRole" required>
+                <mat-option *ngFor="let item of filteredRoles | async" [value]="item">
+                  <span class="text-xs font-bold text-gray-700 capitalize">{{ item?.name }}</span>
+                </mat-option>
+              </mat-autocomplete>
+              <mat-error *ngIf="role?.errors && role?.touched" class="flex text-xs text-red-500 capitalize">
+                <mat-error *ngIf="role?.errors?.required">
+                  User Role is required
+                </mat-error>
+              </mat-error>
+            </div>
+          </div>
+
+          <div class="flex h-20 mx-2 mt-5 space-x-4">
+            <div class="w-1/2 h-auto grid grid-rows-1">
+              <label class="text-xs text-gray-500 capitalize md:text-sm text-light ">
+                Password:
+                <svg *ngIf="password?.valid" [ngClass]="{ 'text-green-500': password?.valid && (password?.touched || password?.dirty) }" class="inline-block w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                <svg *ngIf="password?.invalid" [ngClass]="{ 'text-red-500': password?.invalid && (password?.touched || password?.dirty) }" class="inline-block w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"></path></svg>
+              </label>
+              <input
+                formControlName="password"
+                [ngClass]="{ 'border-2 border-red-400 focus:ring-2 focus:ring-red-600': (password?.invalid && (password?.touched || password?.dirty)), 'border-2 border-green-400 focus:ring-2 focus:ring-green-600': name?.valid && (password?.touched || password?.dirty) }"
+                class="px-2 py-1 mt-1 border-2 border-gray-400 rounded focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-transparent"
+                type="password"
+                placeholder="" />
+              <span *ngIf="password?.errors && password?.touched" class="pt-2 text-xs text-red-500 capitalize">
+                <span *ngIf="password?.errors?.required">
+                  Password is required
+                </span>
+                <span *ngIf="password?.errors?.minlength">
+                  Password should have atleast 8 characters
+                </span>
+              </span>
+            </div>
+            <div class="w-1/2 h-auto grid grid-rows-1">
+              <label class="text-xs text-gray-500 capitalize md:text-sm text-light ">
+                Confirm Password
+                <svg *ngIf="confirmPassword?.valid" [ngClass]="{ 'text-green-500': confirmPassword?.valid && (confirmPassword?.touched || confirmPassword?.dirty) }" class="inline-block w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                <svg *ngIf="confirmPassword?.invalid" [ngClass]="{ 'text-red-500': confirmPassword?.invalid && (confirmPassword?.touched || confirmPassword?.dirty) }" class="inline-block w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"></path></svg>
+              </label>
+              <input
+                formControlName="confirm_password"
+                [ngClass]="{ 'border-2 border-red-400 focus:ring-2 focus:ring-red-600': (confirmPassword?.invalid && (confirmPassword?.touched || confirmPassword?.dirty)), 'border-2 border-green-400 focus:ring-2 focus:ring-green-600': confirmPassword?.valid && (confirmPassword?.touched || confirmPassword?.dirty) }"
+                class="px-2 py-1 mt-1 border-2 border-gray-400 rounded focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-transparent"
+                type="password"
+                placeholder="" />
+              <span *ngIf="confirmPassword?.errors && confirmPassword?.touched" class="pt-2 text-xs text-red-500 capitalize">
+                <span *ngIf="confirmPassword?.errors?.required">
+                  Confirm Password is required
+                </span>
+                <span *ngIf="confirmPassword?.errors?.mustMatch">
+                  Passwords do not match
+                </span>
+              </span>
+            </div>
+          </div>
+
+          <div class="flex justify-end my-4">
+           <div class="pt-2 space-x-4">
+            <button type="button" routerLink='/dashboard/user-management' mat-stroked-button class="text-gray-800 border border-gray-100">Cancel</button>
+            <button type="button" [disabled]="userForm.invalid" color="primary" (click)="saveUser(userForm)" mat-flat-button  class="text-white bg-blue-400">Save</button>
+           </div>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div *ngIf="isRequestLoading">
+  <div class="fixed top-0 left-0 z-50 block w-full h-full bg-white opacity-75">
+    <span class="relative block w-0 h-0 mx-auto my-0 text-green-500 opacity-75 top-1/2" style="top: 50%;">
+    </span>
+    <div class="flex items-center justify-center h-screen">
+      <img class="items-center" src="../../../../assets/logo/loader-gif/sisocs-loader.gif" alt="">
+    </div>
+  </div>
+</div>

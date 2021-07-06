@@ -1,0 +1,91 @@
+<div class="w-full h-12 mb-5 bg-white shadow-sm">
+  <h1 class="py-2 pl-4 text-sm">
+    Acquisitions
+  </h1>
+</div>
+
+<div class="px-3.5">
+  <div class="flex items-center justify-between my-2">
+    <div class="flex">
+      <mat-form-field appearance="outline" class="py-2 my-2">
+        <input matInput (keyup)="applyFilter($event)" placeholder="Filter Tenders">
+      </mat-form-field>
+    </div>
+    <button mat-flat-button color="primary" class="px-1 py-1 text-xs text-white border rounded" [routerLink]="['new-tender']">+ Create Tender</button>
+  </div>
+</div>
+
+<div *ngIf="!isRequestLoading">
+  <div class="px-3.5" *ngIf="tenderDataSource">
+    <table mat-table [dataSource]="tenderDataSource" matSort class="w-full mat-elevation-z8">
+
+      <ng-container matColumnDef="#">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> # </th>
+        <td mat-cell *matCellDef="let element" class="text-xs"> {{element.id}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Project">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Project </th>
+        <td mat-cell *matCellDef="let element" class="text-xs">
+          <span *ngFor="let project of element.project.data">{{ project?.project_name }}</span>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Process">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Process </th>
+        <td mat-cell *matCellDef="let element" class="text-xs"> {{ element.process_number }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Process Name" class="px-4">
+        <th mat-header-cell *matHeaderCellDef> Process Name </th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.process_name | slice: 0:50 }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Status" class="px-4">
+        <th mat-header-cell *matHeaderCellDef> Status </th>
+        <td mat-cell *matCellDef="let element">
+          <button type="button" class="px-1 text-xs tracking-tighter text-white uppercase bg-green-500 rounded-sm font-extralight">
+            <span>{{  element.status?.status_name}}</span>
+          </button>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Actions">
+        <th mat-header-cell *matHeaderCellDef> Actions </th>
+        <td mat-cell *matCellDef="let element">
+          <div class="flex space-x-4">
+            <svg class="w-4 h-4 text-gray-800 transform hover:text-gray-500 hover:scale-125 hover:cursor-pointer" [routerLink]="['tender-detail', element?.id | encrypt]" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 12a2 2 0 100-4 2 2 0 000 4z"></path><path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"></path></svg>
+            <svg class="w-4 h-4 text-gray-800 transform hover:text-gray-500 hover:scale-125 hover:cursor-pointer" *ngIf="element?.status_id != 2" [routerLink]="['edit-tender', element?.id | encrypt]" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"></path></svg>
+            <svg class="w-4 h-4 text-gray-800 transform hover:text-gray-500 hover:scale-125 hover:cursor-pointer" (click)="deleteTender(element?.id)" *ngIf="_authService.isAdmin()" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
+          </div>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedTenderColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedTenderColumns;"></tr>
+    </table>
+
+    <mat-paginator
+      (page)="handlePageEvent($event)"
+      [length]="tenderData?.meta?.total"
+      [pageSize]="tenderData?.meta?.per_page"
+      [showFirstLastButtons]="showFirstLastButtons"
+      [pageSizeOptions]="pageSizeOptions"
+      [pageIndex]="pageIndex">
+    </mat-paginator>
+
+  </div>
+
+</div>
+
+<div *ngIf="isRequestLoading">
+  <div class="fixed top-0 left-0 z-50 block w-full h-full bg-white opacity-75">
+    <span class="relative block w-0 h-0 mx-auto my-0 text-green-500 opacity-75 top-1/2" style="top: 50%;">
+    </span>
+    <div class="flex items-center justify-center h-screen">
+      <img class="items-center" src="../../../../assets/logo/loader-gif/sisocs-loader.gif" alt="">
+    </div>
+  </div>
+</div>

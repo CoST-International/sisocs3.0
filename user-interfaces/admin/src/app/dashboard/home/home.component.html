@@ -1,0 +1,96 @@
+<div class="h-12 mb-2 bg-white shadow-sm">
+  <h1 class="py-2 pl-4 text-sm">Summary</h1>
+</div>
+
+<div>
+  <section class="text-gray-600 bg-white body-font" *ngIf="!isRequestLoading">
+    <div class="container px-5 py-16 mx-auto" *ngIf="analytics">
+      <div class="flex flex-wrap -m-4 text-left">
+        <div class="w-full p-4 md:w-1/4 sm:w-1/2">
+          <div class="px-4 py-6 rounded shadow-lg bounce-top">
+            <div class="mt-3 mb-1 text-3xl font-bold text-gray-900">
+              {{ analytics?.data?.numOfProjects }}
+            </div>
+            <p class="leading-relaxed">Total Projects</p>
+            <p
+              class="leading-relaxed text-right cursor-pointer"
+              (click)="routeTo('dashboard/project')"
+            >
+              See More
+            </p>
+          </div>
+        </div>
+        <div class="w-full p-4 md:w-1/4 sm:w-1/2">
+          <div class="px-4 py-6 rounded shadow-lg bounce-top">
+            <div class="mt-3 mb-1 text-3xl font-bold text-gray-900">
+              {{ analytics?.data?.numOfTenders }}
+            </div>
+            <p class="leading-relaxed">Total Tenders</p>
+            <p
+              class="leading-relaxed text-right cursor-pointer"
+              (click)="routeTo('dashboard/acquisition')"
+            >
+              See More
+            </p>
+          </div>
+        </div>
+        <div class="w-full p-4 md:w-1/4 sm:w-1/2">
+          <div class="px-4 py-6 rounded shadow-lg bounce-top">
+            <div class="mt-3 mb-1 text-3xl font-bold text-gray-900">
+              {{ analytics?.data?.numOfAwards }}
+            </div>
+            <p class="leading-relaxed">Total Awards</p>
+            <p
+              class="leading-relaxed text-right cursor-pointer"
+              (click)="routeTo('dashboard/award')"
+            >
+              See More
+            </p>
+          </div>
+        </div>
+        <div class="w-full p-4 md:w-1/4 sm:w-1/2">
+          <div class="px-4 py-6 rounded shadow-lg bounce-top">
+            <div class="mt-3 mb-1 text-3xl font-bold text-gray-900">
+              {{ analytics?.data?.numOfContracts }}
+            </div>
+            <p class="leading-relaxed">Total Contracts</p>
+            <p
+              class="leading-relaxed text-right cursor-pointer"
+              (click)="routeTo('dashboard/hiring/contracts')"
+            >
+              See More
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div *ngIf="isRequestLoading">
+    <div
+      class="fixed top-0 left-0 z-50 block w-full h-full bg-white opacity-75"
+    >
+      <span
+        class="
+  text-green-500
+ opacity-75
+ top-1/2
+ my-0
+ mx-auto
+ block
+ relative
+ w-0
+ h-0
+"
+        style="top: 50%"
+      >
+      </span>
+      <div class="flex items-center justify-center h-screen">
+        <img
+          class="items-center"
+          src="../../../assets/logo/loader-gif/sisocs-loader.gif"
+          alt=""
+        />
+      </div>
+    </div>
+  </div>
+</div>

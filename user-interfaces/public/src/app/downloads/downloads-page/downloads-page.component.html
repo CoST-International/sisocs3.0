@@ -1,0 +1,120 @@
+<div fxLayout="column">
+
+  <app-mainnav></app-mainnav>
+
+<div>
+
+
+  <!-- component -->
+  <div class="flex items-center">
+    <div class="max-w-7xl w-full mx-auto py-6 sm:px-6" fxLayout="column" fxLayoutGap="30px">
+      <div>
+
+  <section class="lg:py-12 lg:flex lg:justify-start">
+    <div class="bg-white g:mx-8 lg:flex lg:max-w-5xl ">
+        <div class="lg:w-1/2">
+            <div class="h-64 bg-cover lg:rounded-lg lg:h-full" style="background-image:url('https://images.unsplash.com/photo-1593642532400-2682810df593?ixlib=rb-1.2.1&ixid=MXwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=750&q=80')"></div>
+        </div>
+
+        <div class="max-w-xl px-6 py-12 lg:max-w-5xl lg:w-1/2">
+            <h2 class="text-2xl font-bold text-gray-800 dark:text-white md:text-3xl">Descargar de los conjutos de  <span class="text-indigo-600 dark:text-indigo-400">datos</span></h2>
+            <p class="mt-4 text-gray-600 dark:text-gray-400">Para la recuperación de datos de máquina a máquina, use la <span class="font-extrabold">API</span> de interfaz de programación de aplicaciones. Para descargar el conjunto de datos, haga clic en el botón de descarga a continuación en la opción deseada.</p>
+
+
+        </div>
+    </div>
+</section>
+
+
+        <!-- component -->
+      <div class="overflow-x-auto">
+        <div class="min-w-screen  min-h-screen  overflow-hidden">
+
+
+
+          <div class="w-full lg:w-6/6" >
+                <div class="bg-white shadow-2xl rounded my-6">
+                  <div class="p-5 flex justify-between" >
+                    <div>
+                      <span class="font-extrabold uppercase mr-1">FILTRADO POR: </span>
+
+                      <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-gray-600 bg-gray-200 uppercase last:mr-0 mr-1">
+                        {{year}}
+                      </span>
+
+                    </div>
+                    <span fxFlex></span>
+                    <app-loader *ngIf="isLoadingProjects" ></app-loader>
+                    <div class="flex">
+                     <select (change)="onChange($event)">
+                        <option value="">Seleccione un  ano</option>
+                        <option  *ngFor="let y of years" [value]="y.year">{{y.year}}</option>
+                      </select>
+                    </div>
+
+
+
+                  </div>
+                    <table *ngIf="!isLoadingProjects"  class="min-w-max w-full table-auto">
+                        <thead>
+                            <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+                                <th class="py-3 px-6 text-left">EDITOR</th>
+                                <th class="py-3 px-6 text-left">AÑO</th>
+
+                                <th class="py-3 px-6 text-right">
+                                  <span>DESCARGAR</span>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-gray-600 text-sm font-light">
+                            <tr *ngFor="let i of projectOwners" class="border-b border-gray-200 hover:bg-gray-100">
+                                <td class="py-3 px-6 text-left whitespace-nowrap">
+                                    <div class="flex items-center">
+                                        <span class="capitalize">{{i.name}}</span>
+                                    </div>
+                                </td>
+                                <td class="py-3 px-6 text-right whitespace-nowrap">
+                                  <div class="flex items-center">
+                                      <span class="capitalize">{{year}}</span>
+                                  </div>
+                              </td>
+                                <td class="py-3 px-6 text-right">
+                                    <div class="flex space-x-4  justify-end">
+                                      <a target="_blank" href="{{baseUrl + '/projects-export?o=' + i.id + '&f=xlsx'+ '&y='+ year }}">
+                                        <p
+                                          class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                          Excel
+                                        </p>
+                                      </a>
+                                      <a  target="_blank" href="{{baseUrl + '/projects-export?o=' + i.id + '&f=csv'+ '&y='+ year }}">
+                                        <p
+                                          class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
+                                          csv
+                                        </p>
+                                      </a>
+
+                                      <a target="_blank" href="{{baseUrl + '/projects?id=' + i.id}}">
+                                        <div class="ml-2 flex-shrink-0 flex">
+                                          <p
+                                            class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-purple-100 text-purple-800">
+                                            json
+                                          </p>
+                                        </div>
+                                      </a>
+                                    </div>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+      </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+  <app-mainfooter></app-mainfooter>
+</div>

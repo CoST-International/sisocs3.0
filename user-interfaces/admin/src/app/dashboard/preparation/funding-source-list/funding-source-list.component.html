@@ -1,0 +1,40 @@
+<div class="py-2 pr-10 my-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
+  <div class="inline-block min-w-full pt-3 overflow-hidden align-middle shadow">
+    <table class="min-w-full">
+      <thead>
+        <tr>
+          <th class="px-6 py-3 tracking-wider text-left text-gray-500 border-b border-gray-200 leading-4">#</th>
+          <th class="px-6 py-3 text-sm tracking-wider text-left text-gray-500 border-b border-gray-200 leading-4">Fountain</th>
+          <th class="px-6 py-3 text-sm tracking-wider text-left text-gray-500 border-b border-gray-200 leading-4">Currency</th>
+          <th class="px-6 py-3 text-sm tracking-wider text-left text-gray-500 border-b border-gray-200 leading-4">Amount</th>
+          <th class="px-6 py-3 text-sm tracking-wider text-left text-gray-500 border-b border-gray-200 leading-4">Action</th>
+        </tr>
+      </thead>
+      <tbody class="bg-white">
+        <tr *ngFor="let source of addedProjectFundingSources?.data; let i = index">
+          <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+            <div class="flex items-center">
+              <div>
+                <div class="text-sm text-gray-700 leading-5">{{ i + 1 }}</div>
+              </div>
+            </div>
+          </td>
+          <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+            <div class="text-sm text-gray-700 leading-5">
+              <span *ngFor="let item of source?.fundingSources?.data">{{ item?.name }}</span>
+            </div>
+          </td>
+          <td class="px-6 py-4 text-sm text-gray-500 whitespace-no-wrap border-b border-gray-200 leading-5">
+            <span *ngFor="let currency of source?.currencies?.data">{{ currency?.code }} - {{ currency?.name }}</span>
+          </td>
+          <td class="px-6 py-4 text-sm text-gray-500 whitespace-no-wrap border-b border-gray-200 leading-5">
+            <span>{{ source?.amount | number: '' }}</span>
+          </td>
+          <td class="px-6 py-4 text-sm whitespace-no-wrap border-b border-gray-200 leading-5">
+            <button class="px-5 py-2 text-red-500 border border-red-500 rounded transition duration-300 hover:bg-red-700 hover:text-white focus:outline-none" (click)="deleteFundingSource(source.id)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

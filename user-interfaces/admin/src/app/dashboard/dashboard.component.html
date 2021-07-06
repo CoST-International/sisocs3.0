@@ -1,0 +1,164 @@
+
+<div *ngIf="_authService.isAuthenticated()">
+  <mat-toolbar color="primary">
+    <mat-toolbar-row class="flex justify-between">
+      <div >
+        <button (click)="_navService.toggleNav()" mat-icon-button class="inline-block align-middle">
+          <mat-icon>menu</mat-icon>
+        </button>
+        <span class="menu-spacer"></span>
+        <img routerLink='/dashboard/home' class="inline-block h-6 align-middle hover:cursor-pointer" src="../../assets/logo/login-sisocs.png" alt="">
+      </div>
+
+      <div class="space-x-4">
+        <span>{{ userOrganization?.organization_name }}</span>
+        <span *ngIf="_authService.isAdmin()">{{ user?.role?.name }}</span>
+        <a mat-button [matMenuTriggerFor]="menu">
+          <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path></svg>
+        </a>
+        <mat-menu #menu="matMenu">
+          <div class="px-2" *ngIf="!_authService.isAdmin()">{{ user?.name }} - <span class="px-2 text-xs" *ngIf="!_authService.isAdmin()">{{ user?.role?.name }}</span></div>
+          <button mat-menu-item (click)="viewProfile()">Profile</button>
+          <button mat-menu-item (click)='logout()'>Logout</button>
+        </mat-menu>
+      </div>
+    </mat-toolbar-row>
+  </mat-toolbar>
+
+  <mat-sidenav-container>
+    <mat-sidenav #sidenav class="bg-sidenav text-gray-50" mode="over" opened="false">
+      <mat-nav-list class="text-white">
+
+        <a mat-list-item (click)="routeTo('dashboard/project')" class="text-sm text-color"> ID </a>
+        <a mat-list-item (click)="routeTo('dashboard/preparation')"class="text-color"> Preparation </a>
+        <a mat-list-item (click)="routeTo('dashboard/prequalification')"class="text-color"> Pre qualification </a>
+        <a mat-list-item (click)="routeTo('dashboard/acquisition')"class="text-color"> Acquisition </a>
+        <a mat-list-item (click)="routeTo('dashboard/award')"class="text-color"> Award </a>
+        <mat-accordion class="app-nav-accordion">
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title class="text-color">
+              Hiring
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <ul class="text-xs">
+            <li>
+              <a mat-list-item (click)="routeTo('dashboard/hiring/contracts')" class="space-x-2 text-xs text-color"> Contracts </a>
+            </li>
+            <li>
+              <a mat-list-item (click)="routeTo('dashboard/hiring/executions')" class="space-x-2 text-xs text-color"> Executions </a>
+            </li>
+            <li>
+              <a mat-list-item (click)="routeTo('dashboard/hiring/addenda')" class="space-x-2 text-xs text-color"> Addenda </a>
+            </li>
+            <li>
+              <a mat-list-item (click)="routeTo('dashboard/hiring/advances')" class="space-x-2 text-xs text-color"> Advances </a>
+            </li>
+            <li>
+              <a mat-list-item (click)="routeTo('dashboard/hiring/disbursements')" class="space-x-2 text-xs text-color"> Disbursements </a>
+            </li>
+            <li>
+              <a mat-list-item (click)="routeTo('dashboard/hiring/guarantees')" class="space-x-2 text-xs text-color"> Guanrantee </a>
+            </li>
+          </ul>
+        </mat-expansion-panel>
+        </mat-accordion>
+        <a mat-list-item (click)="routeTo('dashboard/ending')"class="text-color">
+        Completion
+        </a>
+        <!-- <a mat-list-item (click)="routeTo('dashboard/documents')"class="text-color">
+        Documents
+        </a> -->
+        <!-- <a mat-list-item (click)="routeTo('dashboard/settings')"class="text-color">
+        Settings
+        </a> -->
+        <mat-accordion class="app-nav-accordion" *ngIf="_authService.isAdmin() || _authService.isPEAdmin()">
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title class="text-sm text-color">
+              Catalog
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <ul>
+            <li>
+              <a mat-list-item (click)="routeTo('dashboard/catalog/entities')" class="space-x-2 text-xs text-color"> Entities </a>
+            </li>
+            <li>
+              <a mat-list-item (click)="routeTo('dashboard/catalog/organization-units')" class="space-x-2 text-xs text-color"> Entity Units </a>
+            </li>
+            <li>
+              <a mat-list-item (click)="routeTo('dashboard/catalog/officials')" class="space-x-2 text-xs text-color"> Officials </a>
+            </li>
+            <li>
+              <a mat-list-item (click)="routeTo('dashboard/catalog/roles')" class="space-x-2 text-xs text-color"> Role </a>
+            </li>
+            <!-- <li>
+              <a mat-list-item (click)="routeTo('dashboard/catalog/sectors')" class="space-x-2 text-xs text-color"> Sectors </a>
+            </li>
+            <li>
+              <a mat-list-item (click)="routeTo('dashboard/catalog/sub-sectors')" class="space-x-2 text-xs text-color"> Sub Sectors </a>
+            </li>
+            <li>
+              <a mat-list-item (click)="routeTo('dashboard/catalog/financing-sources')" class="space-x-2 text-xs text-color"> Financing Sources </a>
+            </li>
+            <li>
+              <a mat-list-item (click)="routeTo('dashboard/catalog/contract-types')" class="space-x-2 text-xs text-color"> Types of Contracts </a>
+            </li>
+            <li>
+              <a mat-list-item (click)="routeTo('dashboard/catalog/bidders')" class="space-x-2 text-xs text-color"> Bidders </a>
+            </li>
+            <li>
+              <a mat-list-item (click)="routeTo('dashboard/catalog/acquisition-methods')" class="space-x-2 text-xs text-color"> Acquisition Methods </a>
+            </li>
+            <li>
+              <a mat-list-item (click)="routeTo('dashboard/catalog/hiring-methods')" class="space-x-2 text-xs text-color"> Hiring Method </a>
+            </li>
+            <li>
+              <a mat-list-item (click)="routeTo('dashboard/catalog/hiring-method-types')" class="space-x-2 text-xs text-color"> Types of Hiring Methods </a>
+            </li>
+            <li>
+              <a mat-list-item (click)="routeTo('dashboard/home')" class="space-x-2 text-xs text-color"> Contacts </a>
+            </li>
+            <li>
+              <a mat-list-item (click)="routeTo('dashboard/catalog/guarantee-types')" class="space-x-2 text-xs text-color"> Types of Guanrantees </a>
+            </li>
+            <li>
+              <a mat-list-item (click)="routeTo('dashboard/catalog/currencies')" class="space-x-2 text-xs text-color"> Currencies </a>
+            </li> -->
+          </ul>
+        </mat-expansion-panel>
+        </mat-accordion>
+        <!-- <a mat-list-item (click)="sidenav.toggle()" href="" mat-list-item>Close</a> -->
+        <a *ngIf="_authService.isAdmin() || _authService.isPEAdmin()" mat-list-item (click)="routeTo('dashboard/user-management')"class="text-color">
+          User Management
+        </a>
+        <!-- <a mat-list-item (click)="routeTo('dashboard/reports/acquisitions')"class="text-color">
+          Acquisition
+        </a>
+        <a mat-list-item (click)="routeTo('dashboard/reports/technicians')"class="text-color">
+          Technicians
+        </a> -->
+
+      </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <div style="height: 88vh;">
+        <router-outlet>
+        </router-outlet>
+      </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+
+</div>
+
+<app-login *ngIf="!_authService.isAuthenticated()"></app-login>
+
+<div *ngIf="isRequestLoading">
+  <div class="fixed top-0 left-0 z-50 block w-full h-full bg-white opacity-75">
+    <span class="relative block w-0 h-0 mx-auto my-0 text-green-500 opacity-75 top-1/2" style="top: 50%;">
+    </span>
+    <div class="flex items-center justify-center h-screen">
+      <img class="items-center" src="../../assets/logo/loader-gif/sisocs-loader.gif" alt="loader">
+    </div>
+  </div>
+</div>

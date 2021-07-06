@@ -1,0 +1,55 @@
+<div class="h-12 mb-5 bg-white shadow-sm">
+  <h1 class="py-2 pl-4 text-sm">User Profile</h1>
+</div>
+
+<div class="px-3.5" >
+  <div *ngIf="user">
+    <div class="flex items-center justify-center my-4">
+      <div class="w-full bg-white shadow-xl">
+        <div class="flex items-center justify-between p-4 border-b">
+          <!-- <h2 class="text-2xl">user Information</h2> -->
+          <div></div>
+          <div class="flex space-x-4">
+            <button mat-flat-button color="primary" class="px-2 py-2 text-xs text-white border rounded" [routerLink]="['/dashboard/home']">
+              <svg class="inline w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd"></path></svg>
+              Back
+            </button>
+            <button mat-flat-button color="primary" class="px-2 py-2 text-xs text-white border rounded" [routerLink]="['edit-profile', user?.data?.id | encrypt]">
+              <svg class="inline w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"></path></svg>
+              Edit
+            </button>
+          </div>
+        </div>
+        <div>
+          <div class="p-4 border-b md:grid md:grid-cols-2 hover:bg-gray-50 md:space-y-0 space-y-1">
+            <p class="text-gray-600">User Name</p>
+            <p>{{ user?.data?.name }}</p>
+          </div>
+          <div
+            class="p-4 border-b md:grid md:grid-cols-2 hover:bg-gray-50 md:space-y-0 space-y-1">
+            <p class="text-gray-600">Email</p>
+            <p>
+              {{ user?.data?.email  }}
+            </p>
+          </div>
+          <div
+            class="p-4 border-b  md:grid md:grid-cols-2 hover:bg-gray-50 md:space-y-0 space-y-1">
+            <p class="text-gray-600">Organization</p>
+            <p>
+              <span *ngIf="!_authService.isAdmin()">{{ user?.data?.organization?.organization_name  }}</span>
+              <span *ngIf="_authService.isAdmin()">N/A</span>
+            </p>
+          </div>
+          <div
+            class="p-4 border-b md:grid md:grid-cols-2 hover:bg-gray-50 md:space-y-0 space-y-1">
+            <p class="text-gray-600">Role</p>
+            <p>
+              {{ user?.data?.role?.name ? user?.data?.role?.name : user?.data?.role?.name  }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

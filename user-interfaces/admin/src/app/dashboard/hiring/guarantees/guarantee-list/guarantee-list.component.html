@@ -1,0 +1,38 @@
+<div class="h-12 mb-5 bg-white shadow-sm">
+  <h1 class="py-2 pl-4 text-sm">
+    Guarantee
+  </h1>
+</div>
+
+
+
+
+<div class="container px-3.5">
+
+  <div class="flex items-center justify-between my-2">
+    <form class="flex items-center space-x-2" [formGroup]="guaranteeSearchForm" (ngSubmit)="searchGuarantees(guaranteeSearchForm)">
+      <mat-form-field appearance="outline">
+        <mat-label>Search Guarantees</mat-label>
+        <input matInput type="text" formControlName="searchQuery" placeholder="Search guarantees">
+        <button mat-button mat-icon-button matSuffix (click)="clearSearch()" *ngIf="searchQuery?.dirty && !searchQuery?.errors?.required">
+          <mat-icon>close</mat-icon>
+        </button>
+        <mat-error *ngIf="searchQuery?.invalid">
+          <mat-error *ngIf="searchQuery?.errors?.required">Guarantee Code is
+            <strong>required</strong>
+          </mat-error>
+          <mat-error *ngIf="searchQuery?.errors?.minLength">More than <strong>4</strong> characters
+            <strong>required</strong>
+          </mat-error>
+        </mat-error>
+      </mat-form-field>
+      <button type="submit" *ngIf="guaranteeSearchForm.valid" [disabled]="guaranteeSearchForm.invalid" color="primary" class="px-2 py-2 text-xs text-white border rounded-sm">Search</button>
+    </form>
+    <button mat-flat-button color="primary" class="px-1 py-1 text-xs text-white border rounded" [routerLink]="['new-guarantee']">+ Create Waranty</button>
+  </div>
+
+</div>
+
+<!-- <div *ngIf="isLoading">
+  <app-list-loader></app-list-loader>
+</div> -->

@@ -1,0 +1,26 @@
+<div *ngIf="!isLoading">
+  <div class="py-2 text-lg">
+    Add Offerrers
+  </div>
+  <div>
+    <form [formGroup]="biddersForm">
+      <div class="relative mt-5 grid grid-cols-1">
+        <label class="text-xs text-gray-500 capitalize md:text-sm text-light ">Offerers: </label>
+        <select formControlName="offerrer_id" class="px-2 py-1 mt-1 border-2 border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-transparent">
+          <option value="{{ bidder.id }}" *ngFor="let bidder of bidders?.data">{{ bidder.name | titlecase}}</option>
+        </select>
+      </div>
+      <div class="flex justify-end my-4">
+        <div class="space-x-4">
+         <button type="button" (click)="closeDialog()" mat-stroked-button class="text-gray-800 border border-gray-100">Cancel</button>
+         <button type="button" (click)="saveBidder(biddersForm)" mat-flat-button  class="text-white bg-blue-400">Save</button>
+        </div>
+       </div>
+    </form>
+
+  </div>
+</div>
+
+<div *ngIf="isLoading" class="flex justify-center">
+  <img src="../../../../assets/logo/loader-gif/sisocs-loader.gif" alt="">
+</div>

@@ -1,0 +1,114 @@
+<div fxLayout="column">
+
+  <app-mainnav></app-mainnav>
+
+
+
+  <div>
+    <!-- component -->
+    <div class="flex">
+      <div class="max-w-7xl w-full mx-auto py-6 sm:px-6 " fxLayout.lg="row" fxLayout.sm="column" fxLayout.xl="row">
+      
+
+        <main *ngIf="projects" class="flex-1   transition
+		duration-500 ease-in-out">
+          <div class="text-gray-700 dark:text-gray-500 transition
+      duration-500 ease-in-out">
+
+            <!-- component -->
+
+            <div *ngFor="let i of projects" class="grid mx-8">
+
+
+              <!-- Question Listing Item Card -->
+              <div class="bg-white rounded-lg shadow-sm hover:shadow-lg duration-500  sm:px-6 md:px-2 py-4 my-6">
+                <div class="grid gap-3">
+                  <!-- Summary Column -->
+                  <div class="col-span-12 sm:col-start-3 sm:col-end-13 px-3 sm:px-0">
+
+
+                    <div class="mt-2" fxLayout="row" fxLayoutGap="10px">
+                      <div fxLayout="column" fxFlex="80%">
+                        <a [routerLink]="['/project/details']" [queryParams]="{id: i._id}"
+                          class="sm:text-sm md:text-md lg:text-lg text-gray-700 font-bold hover:underline">
+                          {{i.projects[0].title}}
+                        </a>
+
+                        <div class="my-3 text-gray-500 text-xs md:text-md">
+                          {{i.projects[0].description}}
+                        </div>
+
+
+                        <div fxLayout="row" fxLayoutGap="30px">
+                          <div class="flex flex-col">
+                            <div class="text-xs uppercase font-light text-gray-500">
+                              Entity
+                            </div>
+                            <div class="text-base font-bold text-gray-400">
+                              {{i.publisher.name}}
+                            </div>
+                          </div>
+                          <div class="flex flex-col">
+                            <div class="text-xs uppercase font-light text-gray-500">
+                              Budget
+                            </div>
+
+                            <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded text-gray-600 bg-gray-200 uppercase last:mr-0 mr-1">
+                              {{i.projects[0].budget.amount.amount | currency:'HNL '}}
+                            </span>
+                          </div>
+
+
+                        </div>
+
+                      </div>
+
+                      <div fxFlex fxLayoutAlign="end start">
+
+
+                        <!-- Question Labels -->
+                        <div class="grid grid-cols-2 mt-4 my-auto">
+                          <!-- Categories  -->
+                          <div class="col-span-12 lg:col-span-8">
+                            <div class="text-xs uppercase  my-3 font-light text-gray-500">
+                              Download
+                            </div>
+
+                            <div fxLayout="row" >
+                              <div class="ml-2 flex-shrink-0 flex">
+                                <p class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                    Excel
+                                </p>
+                            </div>
+                            <div class="ml-2 flex-shrink-0 flex">
+                              <p class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
+                                  csv
+                              </p>
+                          </div>
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </main>
+
+      </div>
+
+    </div>
+  </div>
+
+  <app-mainfooter></app-mainfooter>
+
+
+
+
+
+</div>

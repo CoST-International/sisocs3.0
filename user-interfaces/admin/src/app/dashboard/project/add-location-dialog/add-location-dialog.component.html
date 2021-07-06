@@ -1,0 +1,77 @@
+<div *ngIf="!isLoading">
+  <div class="py-2 text-lg">
+    Add Location
+  </div>
+  <div class="mx-1">
+    <form [formGroup]="locationForm">
+      <div class="relative mt-5 grid grid-cols-1">
+        <label class="flex items-center justify-between text-xs text-gray-500 capitalize md:text-sm text-light">
+          <span>
+            <span>State: </span>
+            <svg *ngIf="state?.valid && state?.touched" [ngClass]="{ 'text-green-500': state?.valid && (state?.touched || state?.dirty) }" class="inline-block w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+          </span>
+          <svg
+            matTooltip="Choose State from the dropdown menu"
+            [matTooltipPosition]="positionOptions[2]"
+            class="inline-block w-4 h-4 hover:text-blue-500 focus:text-blue-500 hover:cursor-pointer" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
+        </label>
+        <input
+          formControlName="state_id"
+          [matAutocomplete]="auto"
+          [ngClass]="{ 'border-2 border-red-400 focus:ring-2 focus:ring-red-600': (state?.invalid && (state?.touched || state?.dirty)), 'border-2 border-green-400 focus:ring-2 focus:ring-green-600': state?.valid && (state?.touched || state?.dirty) }"
+          class="px-2 py-1 mt-1 border-2 border-gray-400 rounded focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-transparent"
+          type="search"
+          placeholder="Choose State" />
+        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onSelectState($event.option.value)" [displayWith]="displayState" required>
+          <mat-option *ngFor="let state of filteredStates | async" [value]="state">
+            <span class="text-xs font-bold text-gray-700 capitalize">{{state?.state_name }}</span>
+          </mat-option>
+        </mat-autocomplete>
+        <div *ngIf="state?.errors && state?.touched" class="pt-2 text-xs text-red-500 capitalize">
+          <div *ngIf="state?.errors?.required">
+            State is required
+          </div>
+        </div>
+      </div>
+      <div class="relative mt-5 grid grid-cols-1">
+       <label class="flex items-center justify-between text-xs text-gray-500 capitalize md:text-sm text-light">
+          <span>
+            <span>Cities: </span>
+            <svg *ngIf="city?.valid && city?.touched" [ngClass]="{ 'text-green-500': city?.valid && (city?.touched || city?.dirty) }" class="inline-block w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+          </span>
+          <svg
+            matTooltip="Choose City from the dropdown menu"
+            [matTooltipPosition]="positionOptions[2]"
+            class="inline-block w-4 h-4 hover:text-blue-500 focus:text-blue-500 hover:cursor-pointer" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
+        </label>
+        <input
+          formControlName="city_id"
+          [matAutocomplete]="autoCity"
+          [ngClass]="{ 'border-2 border-red-400 focus:ring-2 focus:ring-red-600': (city?.invalid && (city?.touched || city?.dirty)), 'border-2 border-green-400 focus:ring-2 focus:ring-green-600': city?.valid && (city?.touched || city?.dirty) }"
+          class="px-2 py-1 mt-1 border-2 border-gray-400 rounded focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-transparent"
+          type="search"
+          placeholder="Choose State" />
+        <mat-autocomplete #autoCity="matAutocomplete" [displayWith]="displayStateCity" required>
+          <mat-option *ngFor="let city of filteredCities | async" [value]="city">
+            <span class="text-xs font-bold text-gray-700 capitalize">{{city?.city_name }}</span>
+          </mat-option>
+        </mat-autocomplete>
+        <div *ngIf="city?.errors && city?.touched" class="pt-2 text-xs text-red-500 capitalize">
+          <div *ngIf="city?.errors?.required">
+            City is required
+          </div>
+        </div>
+      </div>
+      <div class="flex justify-end my-4">
+        <div class="mt-4 space-x-4">
+         <button type="button" (click)="closeDialog()" mat-stroked-button class="text-gray-800 border border-gray-100">Cancel</button>
+         <button [disabled]="locationForm.invalid" type="button" color="primary" (click)="saveLocation(locationForm)" mat-flat-button  class="text-white bg-blue-400">Save</button>
+        </div>
+       </div>
+    </form>
+  </div>
+</div>
+
+<div *ngIf="isLoading" class="flex justify-center">
+  <img src="../../../../assets/logo/loader-gif/sisocs-loader.gif" alt="">
+</div>

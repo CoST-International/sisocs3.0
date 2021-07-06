@@ -1,0 +1,140 @@
+<div class="h-12 mb-5 bg-white shadow-sm">
+  <h1 class="py-2 pl-4 text-sm">
+    Officials
+  </h1>
+</div>
+
+<div class="px-3.5" *ngIf="!isRequestLoading">
+  <section class="text-gray-600 bg-white">
+    <div class="mx-auto">
+      <div class="pt-16 mx-2 overflow-auto sm:mx-16">
+        <form [formGroup]="officialsForm" class="mx-1">
+
+          <div class="flex mt-5 space-x-4">
+            <div class="w-1/2 grid grid-cols-1">
+              <label class="flex items-center justify-between text-xs text-gray-500 capitalize md:text-sm text-light">
+                <span>
+                  <span>Entity Name</span>
+                  <svg *ngIf="entityName?.valid" [ngClass]="{ 'text-green-500': entityName?.valid && (entityName?.touched || entityName?.dirty) }" class="inline-block w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                  <svg *ngIf="entityName?.invalid" [ngClass]="{ 'text-red-500': entityName?.invalid && (entityName?.touched || entityName?.dirty) }" class="inline-block w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"></path></svg>
+                </span>
+                <svg
+                  matTooltip="Choose Entity from the dropdown menu"
+                  [matTooltipPosition]="positionOptions[2]"
+                  class="inline-block w-4 h-4 hover:text-blue-500 focus:text-blue-500 hover:cursor-pointer" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
+              </label>
+              <input
+                formControlName="entity_id"
+                [matAutocomplete]="auto"
+                [ngClass]="{ 'border-2 border-red-400 focus:ring-2 focus:ring-red-600': (entityName?.invalid && (entityName?.touched || entityName?.dirty)), 'border-2 border-green-400 focus:ring-2 focus:ring-green-600': entityName?.valid && (entityName?.touched || entityName?.dirty) }"
+                class="px-2 py-1 mt-1 border-2 border-gray-400 rounded focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-transparent"
+                type="search"
+                placeholder="Choose Entity" />
+              <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayState" required>
+                <mat-option *ngFor="let item of filteredResponsibleIndividuals | async" [value]="item">
+                  <span class="text-xs font-bold text-gray-700 uppercase">{{ item?.organization_name }}</span>
+                </mat-option>
+              </mat-autocomplete>
+              <mat-error *ngIf="entityName?.errors && entityName?.touched" class="flex text-xs text-red-500 capitalize">
+                <mat-error *ngIf="entityName?.errors?.required">
+                  Entity is required
+                </mat-error>
+              </mat-error>
+            </div>
+            <div class="w-1/2 grid grid-cols-1">
+              <label class="text-xs text-gray-500 capitalize md:text-sm text-light ">
+                Entity Unit Name
+                <svg *ngIf="entityUnitName?.valid" [ngClass]="{ 'text-green-500': entityUnitName?.valid && (entityUnitName?.touched || entityUnitName?.dirty) }" class="inline-block w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                  <svg *ngIf="entityUnitName?.invalid" [ngClass]="{ 'text-red-500': entityUnitName?.invalid && (entityUnitName?.touched || entityUnitName?.dirty) }" class="inline-block w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"></path></svg>
+              </label>
+              <input
+                formControlName="entity_unit_id"
+                [matAutocomplete]="autoUnit"
+                [ngClass]="{ 'border-2 border-red-400 focus:ring-2 focus:ring-red-600':  (entityUnitName?.invalid && (entityUnitName?.touched || entityUnitName?.dirty)), 'border-2 border-green-400 focus:ring-2 focus:ring-green-600': entityUnitName?.valid && (entityUnitName?.touched || entityUnitName?.dirty) }"
+                class="px-2 py-1 mt-1 border-2 border-gray-400 rounded focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-transparent"
+                type="search"
+                placeholder="Choose Entity Unit" />
+                <mat-autocomplete #autoUnit="matAutocomplete" [displayWith]="displayStateUnit" required>
+                  <mat-option *ngFor="let item of filteredOrganizationUnits | async" [value]="item">
+                    <span class="text-xs font-bold text-gray-700 uppercase">{{ item?.name }}</span>
+                  </mat-option>
+                </mat-autocomplete>
+                <mat-error *ngIf="entityUnitName?.errors && entityUnitName?.touched" class="pt-2 text-xs text-red-500 capitalize">
+                  <mat-error *ngIf="entityUnitName?.errors?.required">
+                    Entity Unit is required
+                  </mat-error>
+                </mat-error>
+            </div>
+          </div>
+
+          <div class="flex mt-5 space-x-4">
+            <div class="w-1/2 grid grid-cols-1">
+              <label class="text-xs text-gray-500 capitalize md:text-sm text-light ">
+                Full Name of the Official
+              </label>
+              <input
+                formControlName="full_name"
+                class="px-2 py-1 mt-1 border-2 border-gray-400 rounded focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-transparent"
+                type="text"
+                placeholder="" />
+              <mat-error *ngIf="officialName?.errors && officialName?.touched" class="flex text-xs text-red-500 capitalize">
+                <mat-error *ngIf="officialName?.errors?.required">
+                  Official's Name is Required
+                </mat-error>
+              </mat-error>
+            </div>
+            <div class="w-1/2 grid grid-cols-1">
+              <label class="text-xs text-gray-500 capitalize md:text-sm text-light ">
+                Position
+              </label>
+              <input
+                formControlName="position"
+                class="px-2 py-1 mt-1 border-2 border-gray-400 rounded focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-transparent"
+                type="text"
+                placeholder="" />
+            </div>
+          </div>
+
+          <div class="flex mt-5 space-x-4">
+            <div class="w-1/2 grid grid-cols-1">
+              <label class="text-xs text-gray-500 capitalize md:text-sm text-light ">
+                Email
+              </label>
+              <input
+                formControlName="email"
+                class="px-2 py-1 mt-1 border-2 border-gray-400 rounded focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-transparent"
+                type="email"
+                placeholder="" />
+            </div>
+            <div class="w-1/2 grid grid-cols-1">
+              <label class="text-xs text-gray-500 capitalize md:text-sm text-light ">
+                Telephone
+              </label>
+              <input
+                formControlName="phone"
+                class="px-2 py-1 mt-1 border-2 border-gray-400 rounded focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-transparent"
+                type="tel"
+                placeholder="" />
+            </div>
+          </div>
+          <div class="flex justify-end my-8">
+            <div class="space-x-4">
+             <button type="button" mat-stroked-button [routerLink]="['/dashboard/catalog/officials']" class="text-gray-800 border border-gray-100">Cancel</button>
+             <button [disabled]="officialsForm.invalid" type="button" color="primary" (click)="saveOfficial(officialsForm)" mat-flat-button  class="text-white bg-blue-400">Save Official</button>
+            </div>
+           </div>
+        </form>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div *ngIf="isRequestLoading">
+  <div class="fixed top-0 left-0 z-50 block w-full h-full bg-white opacity-75">
+    <span class="relative block w-0 h-0 mx-auto my-0 text-green-500 opacity-75 top-1/2" style="top: 50%;">
+    </span>
+    <div class="flex items-center justify-center h-screen">
+      <img class="items-center" src="../../../../../assets/logo/loader-gif/sisocs-loader.gif" alt="loader">
+    </div>
+  </div>
+</div>

@@ -1,0 +1,145 @@
+<div fxLayout="column">
+
+  <app-mainnav></app-mainnav>
+
+  <div class=" flex items-center">
+    <div class="max-w-7xl w-full mx-auto py-6 sm:px-6 ">
+
+      <app-bar-chart [title]="chartTitle" [series]="series" [categories]="categories"></app-bar-chart>
+      <app-line-chart [title]="chartTitle" [series]="series" [categories]="categories"></app-line-chart>
+      <app-bar-chart [title]="chartTitle" [series]="series2" [categories]="categories"></app-bar-chart>
+      <app-pie-chart [series]="pieseries" [categories]="pieCategories"></app-pie-chart>
+
+
+      <section class="pt-8 pb-2 bg-blueGray-50">
+        <div class="container px-4 mx-auto">
+          <div class="flex flex-wrap -mx-3">
+            <div class="w-full md:w-1/3 px-3 mb-6">
+              <div class="p-6 shadow bg-white rounded">
+                <div class="flex justify-between">
+                  <p class="text-sm md:text-base text-blueGray-400">Entidades</p>
+
+                </div>
+                <p class="text-3xl lg:text-4xl font-bold font-heading">{{organisations}}</p>
+
+              </div>
+            </div>
+            <div class="w-full md:w-1/3 px-3 mb-6">
+              <div class="p-6 shadow bg-white rounded">
+                <div class="flex justify-between">
+                  <p class="text-sm md:text-base text-blueGray-400">Proyectos</p>
+
+                </div>
+                <p class="text-3xl lg:text-4xl font-bold font-heading">{{countProjects}}</p>
+
+              </div>
+            </div>
+            <div class="w-full md:w-1/3 px-3 mb-6">
+              <div class="p-6 shadow bg-white rounded">
+                <div class="flex justify-between">
+                  <p class="text-sm md:text-base text-blueGray-400">Valor total de los proyectos</p>
+
+                </div>
+                <p class="text-3xl lg:text-4xl font-bold font-heading">{{milifyValue(projectsSum) }}</p>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="bg-blueGray-50">
+        <div class="container px-4 mx-auto">
+          <div class="mx-auto flex flex-wrap items-center justify-between">
+            <span></span>
+            <div class="hidden md:block ">
+              <input type="text" (keyup)="searchProject($event)"
+                class="w-96  px-4 py-3 leading-tight text-sm text-gray-700 bg-gray-100 rounded-md placeholder-gray-500 border border-transparent focus:outline-none focus:bg-white focus:shadow-outline focus:border-blue-400"
+                placeholder="Buscar proyecto" aria-label="Search">
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+
+
+      <section class="py-20 bg-blueGray-50">
+        <div class="container px-4 mx-auto">
+          <table class="w-full bg-white rounded shadow">
+            <thead>
+              <tr class="text-left text-xs">
+                <th class="pl-6 py-4 font-normal">Project</th>
+                <th class="px-4 py-4 font-normal">Budget</th>
+                <th class="px-4 py-4 font-normal">Organisation</th>
+                <th class="px-4 py-4 font-normal">Descargar</th>
+              </tr>
+            </thead>
+            <tbody *ngIf="!isLoadingProjects" >
+              <tr  *ngFor="let i of projects"  class="border-t border-blueGray-100">
+                <td class="flex px-6 py-4 text-xs">
+                  <div class="pl-4">
+                    <p class="font-semibold">{{i.title}}</p>
+                    <a class="text-blueGray-400" [routerLink]="['/project/details']" [queryParams]="{id: i.id}"> {{i.description}}</a>
+                  </div>
+                </td>
+                <td class="px-4 py-2 text-xs font-semibold"> {{i.budget.amount.amount| currency:'HNL '}}</td>
+                <td class="px-4 py-2 text-xs">
+                  <span
+                    class="inline-block py-1 px-3 text-xs text-blue-600 bg-blue-100 font-semibold uppercase rounded-full">{{i.publicAuthority.name}}</span>
+                </td>
+
+                <td>
+                  <div class="flex pl-4 items-center">
+                    <div class="col-span-12 lg:col-span-8">
+
+                      <div class="flex my-2 mx-4">
+                        <div class="ml-2 flex-shrink-0 flex">
+                          <a target="_blank" href="{{baseUrl + '/projects-export?id=' + i.id + '&f=csv' }}">
+                            <p
+                              class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                              Excel
+                            </p>
+                          </a>
+
+                        </div>
+                        <div class="ml-2 flex-shrink-0 flex">
+                          <a target="_blank" href="{{baseUrl + '/projects-export?id=' + i.id + '&f=csv' }}">
+                            <p
+                              class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
+                              csv
+                            </p>
+                          </a>
+                        </div>
+                        <a target="_blank" href="{{baseUrl + '/projects?id=' + i.id}}">
+                          <div class="ml-2 flex-shrink-0 flex">
+                            <p
+                              class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-purple-100 text-purple-800">
+                              json
+                            </p>
+                          </div>
+                        </a>
+                      </div>
+
+                    </div>
+                  </div>
+                </td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+
+    </div>
+  </div>
+
+
+  <app-mainfooter></app-mainfooter>
+
+
+
+
+
+</div>

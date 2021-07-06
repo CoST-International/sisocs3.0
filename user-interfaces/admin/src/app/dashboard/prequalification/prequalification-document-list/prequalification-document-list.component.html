@@ -1,0 +1,46 @@
+<div class="py-2 pr-10 my-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
+  <div class="inline-block min-w-full pt-3 overflow-hidden align-middle shadow">
+    <table class="min-w-full">
+      <thead>
+        <tr>
+          <th class="px-6 py-3 tracking-wider text-left text-gray-500 border-b border-gray-200 leading-4">#</th>
+          <th class="px-6 py-3 text-sm tracking-wider text-left text-gray-500 border-b border-gray-200 leading-4">Document</th>
+          <th class="px-6 py-3 text-sm tracking-wider text-left text-gray-500 border-b border-gray-200 leading-4">Qualification</th>
+          <th class="px-6 py-3 text-sm tracking-wider text-left text-gray-500 border-b border-gray-200 leading-4">Author</th>
+          <th class="px-6 py-3 text-sm tracking-wider text-left text-gray-500 border-b border-gray-200 leading-4">Date</th>
+          <th class="px-6 py-3 text-sm tracking-wider text-left text-gray-500 border-b border-gray-200 leading-4">Actions</th>
+        </tr>
+      </thead>
+      <tbody class="bg-white">
+        <tr *ngFor="let document of addedDocuments?.data; let i = index">
+          <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+            <div class="flex items-center">
+              <div>
+                <div class="text-sm text-gray-700 leading-5">{{ i + 1 }}</div>
+              </div>
+            </div>
+          </td>
+          <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+            <div class="text-sm text-gray-700 leading-5">
+              <span>{{ document?.document_title }}</span>
+            </div>
+          </td>
+          <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+            <div class="text-sm text-gray-700 leading-5">
+              <span>{{ document?.document_title }}</span>
+            </div>
+          </td>
+          <td class="px-6 py-4 text-sm text-gray-500 whitespace-no-wrap border-b border-gray-200 leading-5">
+            <span>{{ document?.document_author }}</span>
+          </td>
+          <td class="px-6 py-4 text-sm text-gray-500 whitespace-no-wrap border-b border-gray-200 leading-5">
+            <span *ngIf="document?.document_published">{{ document?.document_published | date: 'mediumDate' }}</span>
+          </td>
+          <td class="px-6 py-4 text-sm whitespace-no-wrap border-b border-gray-200 leading-5">
+            <button class="px-5 py-2 text-red-500 border border-red-500 rounded transition duration-300 hover:bg-red-700 hover:text-white focus:outline-none" (click)="deleteDocument(document.id)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

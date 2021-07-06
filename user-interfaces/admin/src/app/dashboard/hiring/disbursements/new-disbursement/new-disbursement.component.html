@@ -1,0 +1,64 @@
+<div class="h-12 mb-5 bg-white shadow-sm">
+  <h1 class="py-2 pl-4 text-sm">
+    Disbursement
+  </h1>
+</div>
+
+
+
+
+<div class="px-3.5">
+
+  <section class="text-gray-600 bg-white">
+    <div class="mx-auto" *ngIf="!isLoading">
+      <div class="px-2 pt-16 overflow-auto mx-14">
+          <div>
+            <h1>
+              Register Disbursement
+            </h1>
+          </div>
+          <div>
+            <form [formGroup]="disbursementForm" *ngIf="!isLoading">
+              <div class="mt-5 grid grid-cols-1">
+                <label class="text-xs text-gray-500 capitalize md:text-sm text-light ">Contract: <svg class="inline-block w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"></path></svg></label>
+                <input formControlName="project_id" [matAutocomplete]="auto" class="px-2 py-1 mt-1 border-2 border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-transparent" type="text" placeholder="Select Project" />
+                <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayStateProjects" required>
+                  <mat-option *ngFor="let item of filteredProjects | async" [value]="item">
+                    <span class="text-xs font-thin text-gray-700">{{item?.process_number_standard }} - <span class="text-xs">{{ item?.project_name }}</span></span>
+                  </mat-option>
+                </mat-autocomplete>
+              </div>
+              <div class="mt-5 grid grid-cols-1">
+                <label class="text-xs text-gray-500 capitalize md:text-sm text-light ">Disbursement Date: </label>
+                <input formControlName="disbursement_date" class="px-2 py-1 mt-1 border-2 border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-transparent" type="date" placeholder="" />
+              </div>
+              <div class="mt-5 grid grid-cols-1">
+                <label class="text-xs text-gray-500 capitalize md:text-sm text-light ">Amount: </label>
+                <input formControlName="amount" class="px-2 py-1 mt-1 border-2 border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-transparent" type="text" placeholder="" />
+              </div>
+              <div class="mt-5 grid grid-cols-1">
+                <label class="text-xs text-gray-500 capitalize md:text-sm text-light ">Description: </label>
+                <textarea formControlName="description" class="px-2 py-1 mt-1 border-2 border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-transparent" type="text" placeholder=""> </textarea>
+              </div>
+              <div class="flex justify-start my-4">
+               <div class="space-x-4">
+                <button type="button" mat-stroked-button class="text-gray-800 border border-gray-100">Cancel</button>
+                <button type="button" (click)="saveDisbursement(disbursementForm)" mat-flat-button  class="text-white bg-blue-400">Save</button>
+               </div>
+              </div>
+            </form>
+            <div *ngIf="isLoading">
+              <svg fill="none" viewBox="0 0 24 24" class="w-8 h-8 animate-spin loader-primary"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+            </div>
+          </div>
+      </div>
+    </div>
+  </section>
+
+
+
+</div>
+
+<!-- <div *ngIf="isLoading">
+  <app-list-loader></app-list-loader>
+</div> -->

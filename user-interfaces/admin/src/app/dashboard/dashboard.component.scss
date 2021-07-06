@@ -1,0 +1,47 @@
+.bg-sidenav {
+  background-color: #1b222c;
+}
+
+.text-color {
+  color: #90A4AE !important;
+}
+
+.mat-sidenav-container { background-color: #f2f2f2; }
+
+.app-nav-accordion {
+  .mat-expansion-panel {
+    border-radius: 0px !important;
+    box-shadow: none !important;
+    background-color: #1b222c !important;
+    color: #90A4AE !important;
+
+    &.mat-expansion-panel-spacing {
+      margin: 0px;
+    }
+
+    .mat-expansion-panel-body {
+      padding: 0px;
+    }
+
+    .mat-expansion-panel-header {
+      color: #90A4AE !important;
+      height: 40px;
+      padding: 0px 24px 0px 16px;
+    }
+
+    .mat-expansion-panel-header-title {
+      color: rgba(0,0,0,0.54);
+      font-size: 14px;
+      font-weight: 500;
+    }
+  }
+}
+
+.mat-list .mat-list-item {
+  height: 30px;
+}
+
+button:focus {
+  outline: none !important;
+}
+
