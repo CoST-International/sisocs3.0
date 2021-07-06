@@ -4,3 +4,4 @@ user-interfaces/public/node_modules
 user-interfaces/public/dist
 user-interfaces/admin/node_modules
 user-interfaces/admin/dist
+.history
