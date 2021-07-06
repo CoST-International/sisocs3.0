@@ -8,9 +8,9 @@
 <div align="center">
 
 [![Status](https://img.shields.io/badge/status-active-success.svg)]()
-[![GitHub Issues](https://img.shields.io/github/issues/kylelobo/The-Documentation-Compendium.svg)](https://github.com/kylelobo/The-Documentation-Compendium/issues)
-[![GitHub Pull Requests](https://img.shields.io/github/issues-pr/kylelobo/The-Documentation-Compendium.svg)](https://github.com/kylelobo/The-Documentation-Compendium/pulls)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](/LICENSE)
+[![CoST-International - sisocs3.0](https://img.shields.io/static/v1?label=CoST-International&message=sisocs3.0&color=blue&logo=github)](https://github.com/CoST-International/sisocs3.0)
+[![stars - sisocs3.0](https://img.shields.io/github/stars/CoST-International/sisocs3.0?style=social)](https://github.com/CoST-International/sisocs3.0)
+[![forks - sisocs3.0](https://img.shields.io/github/forks/CoST-International/sisocs3.0?style=social)](https://github.com/CoST-International/sisocs3.0)
 
 </div>
 
@@ -161,6 +161,8 @@ Tell us in the "pull request" your username and organization to add it to the li
 GNU GPLv3
 
 Permissions of this strong copyleft license are conditioned on making available complete source code of licensed works and modifications, which include larger works using a licensed work, under the same license. Copyright and license notices must be preserved. Contributors provide an express grant of patent rights.
+
+Released under [GPL](http://creativecommons.org/licenses/by/4.0/) by [@CoST-International](https://github.com/CoST-International).
 
 ## 🎉 Limitation of responsibilities <a name = "limitation"></a>
 
